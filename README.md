@@ -1,8 +1,6 @@
 **INFOS**
 
-The UploadBundle is for uploading, viewing and zooming gpx tracks.
-
-This bundle contains two templates (named "sidebarright" and "sidebarleft") and two elements (named "UploaderForm" and "UploaderButton").
+The UploadBundle contains two templates (named "sidebarright" and "sidebarleft") and two elements (named "UploaderForm" and "UploaderButton"). These elements permit to upload, view and zoom gpx tracks.
 
 The element UploaderForm is strictly bound at the bundle, so it's just usable with the templates made available with this bundle, or with similar templates you will build.
 
