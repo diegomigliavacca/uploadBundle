@@ -1,0 +1,118 @@
+<div id="div_toggle">
+		<ul class="nav default">
+               <li class="default2"><a href="#" class="current" data-toggle="#select_gps" type="button" title="upload a gpx file" id="import" tabindex="0" onClick="$('#uploaderForm').trigger('reset'); $('#output').html('');return false;">Upload</a></li>
+               {% if configuration.last_uploaded_files %}<li><a href="#" data-toggle="#vw" type="submit" id="lastk" tabindex="1" title="view last uploaded files">View</a></li>{% endif %}
+               <li class="last"><a href="#" data-toggle="#search_tk" type="button" title="search uploaded files" id="srch" tabindex="2" onClick="$('#find').html(''); $('#fname').val('');return false;">Search</a></li>
+    	</ul>
+    </div>
+
+	<div class="d">
+		<div id="select_gps" class="dv">
+			<form action="{{ path('mapbender_core_application_element', {'slug': appname, 'id': id, 'action': 'upload'} ) }}" id="uploaderForm" method="post" {{ form_enctype(form) }}>
+			{#	<label for="uploader_file"><br>File upload<br></label> #}
+				{{ form_widget(form) }}
+				{% if configuration.color_picker %}
+					<label for="color"><br>Track color<br></label>
+					<input type="text" id="color" class="color" name="color">
+				{% endif %}
+				<input id="upload" type="submit" name="submit" class="upload" value="Upload" onClick="$('#output').html('');">
+			</form>
+			<div id="output" class="output" name="output"></div>
+		</div>
+
+	{% if configuration.last_uploaded_files %}
+		<div id="vw" class="dv">
+			Latest five uploaded gps tracks
+			<div id="tracks" class="tracks"></div>
+		</div>
+	{% endif %}
+		
+		<div id="search_tk" class="dv">
+			<i class="icon-search pull-left"></i>
+				Search by file name or date (dd-mm-yyyy)<br>
+				<input type="text" id="fname"><br>
+				<div id="find" class="find"></div>
+  		</div>
+	</div>
+	
+	<script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js')}}"></script>
+	
+	{# 3 buttons div toggle at the top of the sidebar #}
+		<script type="text/javascript"> 
+      		$("a[data-toggle]").on("click", function(e) {
+  				e.preventDefault();  // cancel the default action of the click
+  				var selector = $(this).data("toggle");  // get relating element
+  				$(".d").find(".dv").hide();
+  				$("li").find("a").removeClass("current");
+  				$(selector).show();
+  				$(this).addClass("current");  				
+			});
+   		</script>
+   		
+   	{# server response after uploading track #}
+		<script type="text/javascript">		
+			$(document).ready(function(){ 
+				$("#uploaderForm").ajaxForm({ 
+           			success: function(responseText){ 
+            			$('#output').html(responseText);
+            			},
+            		clearForm: true
+         		});
+			})		  
+		</script>
+		
+	{# show last 5 uploaded files - last uploaded files div #}
+		<script type="text/javascript">	
+			$(document).ready(function(){
+				$("#lastk").click(function(){
+					$.ajax({ 					
+					url: "{{ path('lastuploadedfiles') }}",
+           			success: function(response){
+            			$('#tracks').html(response);
+            			}
+         			});
+         		});
+			})	
+		</script>
+
+	{# show track after searching - search div #}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#fname").keyup(function(){
+					var datas = $.trim($(this).val());
+					if (datas == ''){
+						$('#find').html('')
+						}
+					else {
+						$.ajax({ 
+							async: false,
+							data: { fname: datas },
+							url: "{{ path('findtrack') }}",
+           					success: function(response){
+            					$('#find').html(response);
+            				}
+         				});
+         			}
+         		});
+			})
+		</script>
+
+	{# input color reset #}
+		{% if configuration.color_picker %}
+			<script type="text/javascript">
+				$(document).ready(function(){ 
+					$("#import").click(function(){
+						document.getElementById('color').color.fromString('#ffffff');
+					});
+				})
+			</script>
+		{% endif %}
+		
+	{# add classes when the last uploaded files element is not checked #}
+		{% if configuration.last_uploaded_files %}
+			<script type="text/javascript">				
+					$("#div_toggle .nav").removeClass("default").addClass("twodiv");
+					$("#div_toggle .nav li").addClass("twodiv2");
+			</script>
+		{% endif %}
+		

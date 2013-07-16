@@ -1,0 +1,112 @@
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/mapbendercore/mapquery/lib/jquery/themes/base/jquery-ui.css') }}" />
+<link rel="stylesheet" href="{{ asset('bundles/mapbenderupload/css/font-awesome/css/font-awesome.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('bundles/mapbenderupload/mapbender.element.uploaderbutton.css') }}">
+<script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/mapbenderupload/js/jscolor/jscolor.js') }}"></script>
+
+<div id="dialog">
+	<div id="tabs">
+    	<ul>
+        	<li><a href="#import" title="upload a gpx file" onClick="$('#uploaderForm').trigger('reset'); $('#output').html('');return false;">Upload</a></li>
+        	<li><a href="#last" type="submit" id="lastk" title="view last uploaded files">View</a></li>
+        	<li><a href="#srch" title="view last uploaded files" onClick="$('#find').html(''); $('#fname').val('');return false;">Search</a></li>
+    	</ul>
+    
+    	<div id="import">
+        	<div id="select_gps">
+				<form action="{{ path('mapbender_core_application_element', {'slug': appname, 'id': id, 'action': 'upload'} ) }}" id="uploaderForm" method="post" {{ form_enctype(form) }}>
+					{{ form_widget(form) }}
+					<label for="color"><br>Track color<br></label>
+					<input type="text" id="color" class="color" name="color">
+					<input id="upload" type="submit" name="submit" class="upload" value="Upload" onClick="$('#output').html('');">
+				</form>
+				<div id="output" class="output" name="output"></div>
+			</div>
+    	</div>
+    
+    	<div id="last">
+    		<div id="vw">
+				Latest five uploaded gps tracks
+				<div id="tracks" class="tracks"></div>
+			</div>
+    	</div>
+    
+    	<div id="srch">
+        	<div id="search_tk">
+				<i class="icon-search pull-left"></i>
+					Search by file name or date (dd-mm-yyyy)<br>
+					<input type="text" id="fname"><br>
+					<div id="find" class="find"></div>
+  			</div>
+    	</div>    
+	</div>
+</div>
+
+<a href="#" type="submit" id="showall" title="upload files"><i class='icon-upload icon-large'></i><b> Upload</b></a>
+
+{# shows dialog and tabs #}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#showall").removeAttr("href").click(function(){
+    			$("#tabs").tabs().css("display", "block");
+    			$("#dialog").dialog({height: 690, width: 415, title: "Upload and view tracks"});
+            });
+		})
+	</script>
+
+	{# server response after uploading track #}
+		<script type="text/javascript">		
+			$(document).ready(function(){ 
+				$("#uploaderForm").ajaxForm({ 
+           			success: function(responseText){ 
+            			$('#output').html(responseText);
+            			},
+            		clearForm: true
+         		});
+			})		  
+		</script>
+
+	{# show last 5 uploaded files - last uploaded files div #}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#lastk").click(function(){
+					$.ajax({ 					
+					url: "{{ path('lastuploadedfiles') }}",
+           			success: function(response){
+            			$('#tracks').html(response);
+            			}
+         			});
+         		});
+			})	
+		</script>
+
+	{# show track after searching - search div #}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#fname").keyup(function(){
+					var datas = $.trim($(this).val());
+					if (datas == ''){
+						$('#find').html('')
+						}
+					else {
+						$.ajax({ 
+							async: false,
+							data: { fname: datas },
+							url: "{{ path('findtrack') }}",
+           					success: function(response){
+            					$('#find').html(response);
+            				}
+         				});
+         			}
+         		});
+			})
+		</script>
+
+	{# input color reset #}
+		<script type="text/javascript">
+			$(document).ready(function(){ 
+				$("#import").click(function(){
+					document.getElementById('color').color.fromString('#ffffff');
+				});
+			})
+		</script>

@@ -1,0 +1,32 @@
+{% for listitem in gb2 %}
+	<div>		
+		<a id='{{ listitem.path }}{{ listitem.name }}' name='{{ listitem.color }}' title="view track on map" class='link' href='#' onClick='poly(this);return false;'>
+			{{ listitem.name }}
+		</a>
+		<a id='{{ listitem.path }}{{ listitem.name }}' name='{{ listitem.name }}' title="download track" class="linkd" type='button' value='download track' onClick='downl(this);return false;'>
+			<i class="icon-download-alt icon-2x link"></i>
+		</a>		
+		{% if app.user.username == listitem.usern %}
+			<a id='{{ listitem.path }}{{ listitem.name }}' name='{{ listitem.name }}' title="delete track" class="linkz" type='button' value='delete track' onClick='if (confirm("Are you sure to delete the file?")) {return del(this);return false;}'>
+				<p class="icon-stack">
+  					<i class="icon-check-empty icon-stack-base icon-large"></i>
+					<i class="icon-trash icon-large"></i>
+				</p>
+			</a>
+		{% endif %}
+		<br />{{ listitem.time }}
+		<br /><i class="icon-male pull-left" title="user"></i> {{ listitem.usern }}
+		<br /><br />
+	</div>
+
+	{# link toggle after selecting track to zoom #}
+		<script type="text/javascript">			
+			$("a.link").click(function () {
+				$("a.link").css("color", "#0088cc");
+    			$(this).css("color", "tomato");
+				}, function () {
+				$(this).css("color", "tomato");
+    			$(this).css("color", "#0088cc");
+			});			
+		</script>
+{% endfor %}
