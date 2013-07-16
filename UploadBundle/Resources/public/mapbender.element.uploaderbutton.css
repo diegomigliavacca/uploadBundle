@@ -1,0 +1,26 @@
+body:after {content: ".";display: block;height: 95px;padding-bottom:95px;visibility: hidden;}
+a{color:#0088cc;}
+a:hover{color:#005580;text-decoration:underline;}
+input[type="file"]{font-size:100%;vertical-align:middle;border:0px;background-color:white;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none; }
+select,button,input[type="submit"],input[type="button"]{height:30px;font-size:100%;vertical-align:middle;}
+input[type="text"]{width:206px;}
+label,input,button,select{font-weight:normal}
+select,input[type="text"]{display:inline-block;padding:4px 6px;margin-bottom:10px;font-size:14px;line-height:20px;color:#555555;vertical-align:middle;border-radius:4px;}
+
+/* the button */
+#showall {padding:5px;color:white;text-align:center;text-decoration:none;cursor:pointer;}
+
+/* links inside lastuploadedfiles.html.twig and inside finder.html.twig */
+.link {margin-right:11px;}
+.linkd {position:relative; top:13px;}
+.linkd:hover {text-decoration: none;}
+.linkz {position:relative; top:6px;}
+.linkz:hover {text-decoration: none;}
+
+/* things inside uploaderbutton.html.twig */
+#tabs {display:none}
+.dv {display: none; position:relative; top:-10px; left:15px;}
+.output {position:relative; top:20px; left:0px; width:325px; height:385px; border:0px}
+.tracks {position:relative; top:20px; left:0px; width:335px; height:505px; overflow:auto}
+.find {position:relative; top:10px; left:0px; width:335px; height:465px; overflow:auto}
+.upload {position:relative; top:-7px; left:10px}

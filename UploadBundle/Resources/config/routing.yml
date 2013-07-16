@@ -1,0 +1,15 @@
+lastuploadedfiles:
+    pattern:      /lastuploadedfiles/
+    defaults:     { _controller: MapbenderUploadBundle:Application:lastUploadedFiles }
+
+deletetrack:
+    pattern:      /deletetrack/
+    defaults:     { _controller: MapbenderUploadBundle:Application:delete }
+    
+findtrack:
+    pattern:      /findtrack/
+    defaults:     { _controller: MapbenderUploadBundle:Application:find }
+    
+downloadtrack:
+    pattern:      /downloadtrack/
+    defaults:     { _controller: MapbenderUploadBundle:Application:download }

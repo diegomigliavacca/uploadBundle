@@ -1,0 +1,12 @@
+<div class="elementFormOverview elementForm">
+    {{ form_label(form.title) }}{{ form_widget(form.title) }}
+    <div class="clearContainer"></div>
+    {{ form_label(form.configuration.tooltip) }}{{ form_widget(form.configuration.tooltip) }}
+    <div class="clearContainer"></div>
+    {{ form_widget(form.configuration.track_uploader) }}<label for="{{form.configuration.track_uploader.vars.id}}" class="labelCheck">{{"Track uploader (required)"|trans}}</label>
+    <div class="clearContainer"></div>
+    {{ form_widget(form.configuration.last_uploaded_files) }}<label for="{{form.configuration.last_uploaded_files.vars.id}}" class="labelCheck">{{"Last uploaded files (optional)"|trans}}</label>
+    <div class="clearContainer"></div>
+    {{ form_widget(form.configuration.color_picker) }}<label for="{{form.configuration.color_picker.vars.id}}" class="labelCheck">{{"Color picker (optional)"|trans}}</label>
+    <div class="clearContainer"></div>
+</div>
