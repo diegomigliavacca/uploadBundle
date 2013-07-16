@@ -40,7 +40,7 @@ The table UpFile will be created.
 	uploadbundle:
     	resource: "@MapbenderUploadBundle/Resources/config/routing.yml"
 
-8) Cut & paste the "uploaderform.html.twig" and "uploaderbutton.html.twig" files (you can find them in the root folder of this bundle) inside mapbender->src->Mapbender->ManagerBundle->Resources->views->Element. It's the backend twig for the form for creating the elements inside the administration page.
+8) Cut & paste the "uploaderform.html.twig" and "uploaderbutton.html.twig" files (you can find them in the root folder of this bundle) inside mapbender->src->Mapbender->ManagerBundle->Resources->views->Element. It's the backend twig for the form for creating the elements inside the Mapbender3 administration page.
 
 <BR />
 **UPLOADERFORM ELEMENT**
