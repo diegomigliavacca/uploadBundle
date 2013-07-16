@@ -1,4 +1,4 @@
-**INFO**
+**INFOS**
 
 The UploadBundle contains two templates (named "sidebarright" and "sidebarleft") and two elements (named "UploaderForm" and "UploaderButton").
 
@@ -7,7 +7,7 @@ The element UploaderForm is strictly bound at the bundle, so it's just usable wi
 The element UploaderButton is usable with every template, it's just a button.
 
 <br />
-**INSTALLING UPLOADBUNDLE**
+**DOCUMENTATION**
 
 If you didn't find this bundle with your Mapbender3 installation, you need:
 
@@ -25,7 +25,7 @@ If you didn't find this bundle with your Mapbender3 installation, you need:
 
 The table UpFile will be created.
 
-5) If you don't have it installed yet, you will need to install the <i>postgresql-contrib</i> package. You need it for using the citext file type (<a href="http://www.postgresql.org/docs/9.0/static/citext.html" target="_blank">www.postgresql.org/docs/9.0/static/citext.html</a>). You will have to set the field Name inside the table UpFile at the citext file type if you want to use this feature.
+5) If you don't have it installed yet, you will need to install the <i>postgresql-contrib</i> package. You need it for using the citext file type (<a href="http://www.postgresql.org/docs/9.0/static/citext.html" target="_blank">www.postgresql.org/docs/9.0/static/citext</a>). You will have to set the field Name inside the table UpFile at the citext file type if you want to use this feature.
 
 6) Put the following line inside the head section of the file skel.html.twig inside fom->src->FOM->CoreBundle->Resources->views.
 
