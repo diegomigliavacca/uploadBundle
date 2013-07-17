@@ -11,7 +11,7 @@ class Uploader extends Element
      */
     public static function getClassTitle()
     {
-        return "Uploader Object";
+        return "Uploader";
     }
 
     /**
@@ -77,6 +77,14 @@ class Uploader extends Element
                         array('id' => $this->getId(),
                             "title" => $this->getTitle(),
                             'configuration' => $this->getConfiguration()));
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public static function getFormTemplate()
+    {
+        return 'MapbenderManagerBundle:Element:uploader.html.twig';
     }
 }
 ?>

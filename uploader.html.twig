@@ -1,0 +1,6 @@
+<div class="elementFormOverview elementForm">
+    {{ form_label(form.title) }}{{ form_widget(form.title) }}
+    <div class="clearContainer"></div>
+    {{ form_widget(form.configuration.file) }}<label for="{{form.configuration.file.vars.id}}" class="labelInput">{{"File upload"|trans}}</label>
+    <div class="clearContainer"></div>
+</div>
