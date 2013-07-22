@@ -1,12 +1,12 @@
 <?php
-namespace Mapbender\UploadBundle\Element;
+namespace SpookyIsland\UploadBundle\Element;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Mapbender\CoreBundle\Component\Element;
-use Mapbender\UploadBundle\Element\Type\UploaderType;
-use Mapbender\UploadBundle\Entity\UpFile;
+use SpookyIsland\UploadBundle\Element\Type\UploaderType;
+use SpookyIsland\UploadBundle\Entity\UpFile;
 
 class UploaderForm extends Element
 {    
@@ -63,7 +63,7 @@ class UploaderForm extends Element
      */
     public static function getType()
     {
-        return 'Mapbender\UploadBundle\Element\Type\UploaderFormType';
+        return 'SpookyIsland\UploadBundle\Element\Type\UploaderFormType';
     }
 
     /**
@@ -82,7 +82,7 @@ class UploaderForm extends Element
         $ff = $this->container->get('form.factory');
         $form = $ff->create(new UploaderType());
         return $this->container->get('templating')->render(
-                        'MapbenderUploadBundle:Element:uploaderform.html.twig',
+                        'SpookyIslandUploadBundle:Element:uploaderform.html.twig',
                         array('id' => $this->getId(),
                             'title' => $this->getTitle(),
                             'configuration' => $this->getConfiguration(),
@@ -96,7 +96,6 @@ class UploaderForm extends Element
         $ff = $this->container->get('form.factory');
         $form = $ff->create(new UploaderType());
         $request = $this->container->get('request');
-   //     echo $_SERVER['HTTP_REFERER'];die;
         $usernm = $this->container->get('security.context')->getToken()->getUser()->getUsername(); //obtaining username from the session token
         
         if ($request->isMethod('POST')) {
@@ -119,6 +118,7 @@ class UploaderForm extends Element
                 $em->persist($tk); // persisting to db
                 $em->flush();
 
+                // $this->container->getParameter('kernel.root_dir') . '/../web/' . $tk->getUploadDir()
                 if (move_uploaded_file($tk->getFile(), $tk->getUploadRootDir() . "/" . $tk->getName())) {
                     return new Response("<p style='font-size:17px'>ok, file&nbsp;" . $tk->getName() . "<br />uploaded on&nbsp;" . $tk->time . "<br /><i class='icon-male pull-left' title='user'></i>" . $usernm . "</p>", 200, array('content-type' => 'text/html'));            
                 }
@@ -132,7 +132,6 @@ class UploaderForm extends Element
      */
     public static function getFormTemplate()
     {
-        return 'MapbenderManagerBundle:Element:uploaderform.html.twig';
+        return 'SpookyIslandUploadBundle:Element:backend_uploaderform.html.twig';
     }
 }
-?>

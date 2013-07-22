@@ -60,11 +60,11 @@
 				$.ajax({
 				type: "POST",
 				data: { filename: $(par).attr("name"), filepath: $(par).attr("id") },
-				url: "{{ path('deletetrack') }}",
+				url: "/mapbender3/app_dev.php/deletetrack/",
             	success: function(response){ 
         				alert(response);
         				$.ajax({ 
-							url: "{{ path('lastuploadedfiles') }}",
+							url: "/mapbender3/app_dev.php/lastuploadedfiles/",
            					success: function(response){
             					$('#tracks').html(response);
             				}
@@ -79,13 +79,13 @@
 				$.ajax({
 				type: "POST",
 				data: { filename: $(par).attr("name"), filepath: $(par).attr("id") },
-				url: "{{ path('deletetrack') }}",				
+				url: "/mapbender3/app_dev.php/deletetrack/",				
             	success: function(response){             		
             				alert(response);            				
 								$.ajax({ 
 									async: false,			
 									data: { fname: $("#fname").val() },
-									url: "{{ path('findtrack') }}",
+									url: "/mapbender3/app_dev.php/findtrack/",
            							success: function(response){
             							$('#find').html(response);
             						}
@@ -97,6 +97,6 @@
   {# track download #}
 	<script type="text/javascript">     
 		function downl(param) {		
-				window.location = "{{ path('downloadtrack') }}?" + $.param({ dname: $(param).attr("name"), dpath: $(param).attr("id") });      	
+				window.location = "/mapbender3/app_dev.php/downloadtrack/?" + $.param({ dname: $(param).attr("name"), dpath: $(param).attr("id") });      	
 		};	
     </script>

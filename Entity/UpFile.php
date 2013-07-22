@@ -1,5 +1,5 @@
 <?php
-namespace Mapbender\UploadBundle\Entity;
+namespace SpookyIsland\UploadBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -145,4 +145,3 @@ class UpFile
         }
     }
 }
-?>

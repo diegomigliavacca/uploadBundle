@@ -1,5 +1,7 @@
 <script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js')}}"></script>
 
+<div id="{{ id }}"></div>
+
 <div id="div_toggle">
 		<ul class="nav default">
                <li class="default2"><a href="#" class="current" data-toggle="#select_gps" type="button" title="upload a gpx file" id="import" tabindex="0" onClick="$('#uploaderForm').trigger('reset'); $('#output').html('');return false;">Upload</a></li>
@@ -65,7 +67,7 @@
 			$(document).ready(function(){
 				$("#lastk").click(function(){
 					$.ajax({ 					
-					url: "{{ path('lastuploadedfiles') }}",
+					url: "/mapbender3/app_dev.php/lastuploadedfiles/",
            			success: function(response){
             			$('#tracks').html(response);
             			}
@@ -86,7 +88,7 @@
 						$.ajax({ 
 							async: false,
 							data: { fname: datas },
-							url: "{{ path('findtrack') }}",
+							url: "/mapbender3/app_dev.php/findtrack/",
            					success: function(response){
             					$('#find').html(response);
             				}

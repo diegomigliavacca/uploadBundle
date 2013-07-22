@@ -1,13 +1,13 @@
 <?php
-namespace Mapbender\UploadBundle\Element;
+namespace SpookyIsland\UploadBundle\Element;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Mapbender\CoreBundle\Component\Element;
-use Mapbender\UploadBundle\Element\Type\UploaderType;
-use Mapbender\UploadBundle\Entity\UpFile;
 use Mapbender\CoreBundle\Entity\Application;
+use SpookyIsland\UploadBundle\Element\Type\UploaderType;
+use SpookyIsland\UploadBundle\Entity\UpFile;
 
 class UploaderButton extends Element
 {    
@@ -61,7 +61,7 @@ class UploaderButton extends Element
      */
     public static function getType()
     {
-        return 'Mapbender\UploadBundle\Element\Type\UploaderButtonType';
+        return 'SpookyIsland\UploadBundle\Element\Type\UploaderButtonType';
     }
 
     /**
@@ -80,7 +80,7 @@ class UploaderButton extends Element
         $ff = $this->container->get('form.factory');
         $form = $ff->create(new UploaderType());
         return $this->container->get('templating')->render(
-                        'MapbenderUploadBundle:Element:uploaderbutton.html.twig',
+                        'SpookyIslandUploadBundle:Element:uploaderbutton.html.twig',
                         array('id' => $this->getId(),
                             'title' => $this->getTitle(),
                             'configuration' => $this->getConfiguration(),
@@ -129,7 +129,6 @@ class UploaderButton extends Element
      */
     public static function getFormTemplate()
     {
-        return 'MapbenderManagerBundle:Element:uploaderbutton.html.twig';
+        return 'SpookyIslandUploadBundle:Element:backend_uploaderbutton.html.twig';
     }
 }
-?>

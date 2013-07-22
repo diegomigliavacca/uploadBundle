@@ -1,6 +1,6 @@
 <?php
 
-namespace Mapbender\UploadBundle\Element\Type;
+namespace SpookyIsland\UploadBundle\Element\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

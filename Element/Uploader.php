@@ -1,5 +1,5 @@
 <?php
-namespace Mapbender\UploadBundle\Element;
+namespace SpookyIsland\UploadBundle\Element;
 
 use Mapbender\CoreBundle\Component\Element;
 
@@ -56,7 +56,7 @@ class Uploader extends Element
      */
     public static function getType()
     {
-        return 'Mapbender\UploadBundle\Element\Type\UploaderType';
+        return 'SpookyIsland\UploadBundle\Element\Type\UploaderType';
     }
 
     /**
@@ -73,7 +73,7 @@ class Uploader extends Element
     public function render()
     {
         return $this->container->get('templating')->render(
-                        'MapbenderUploadBundle:Element:uploader.html.twig',
+                        'SpookyIslandUploadBundle:Element:uploader.html.twig',
                         array('id' => $this->getId(),
                             "title" => $this->getTitle(),
                             'configuration' => $this->getConfiguration()));
@@ -84,7 +84,6 @@ class Uploader extends Element
      */
     public static function getFormTemplate()
     {
-        return 'MapbenderManagerBundle:Element:uploader.html.twig';
+        return 'SpookyIslandUploadBundle:Element:backend_uploader.html.twig';
     }
 }
-?>

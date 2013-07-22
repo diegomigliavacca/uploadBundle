@@ -4,6 +4,8 @@
 <script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/mapbenderupload/js/jscolor/jscolor.js') }}"></script>
 
+<div id="{{ id }}"></div>
+
 <div id="dialog">
 	<div id="tabs">
     	<ul>
@@ -71,7 +73,7 @@
 			$(document).ready(function(){
 				$("#lastk").click(function(){
 					$.ajax({ 					
-					url: "{{ path('lastuploadedfiles') }}",
+					url: "/mapbender3/app_dev.php/lastuploadedfiles/",
            			success: function(response){
             			$('#tracks').html(response);
             			}
@@ -92,7 +94,7 @@
 						$.ajax({ 
 							async: false,
 							data: { fname: datas },
-							url: "{{ path('findtrack') }}",
+							url: "/mapbender3/app_dev.php/findtrack/",
            					success: function(response){
             					$('#find').html(response);
             				}

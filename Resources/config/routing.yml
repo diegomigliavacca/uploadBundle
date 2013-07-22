@@ -1,15 +1,15 @@
 lastuploadedfiles:
     pattern:      /lastuploadedfiles/
-    defaults:     { _controller: MapbenderUploadBundle:Application:lastUploadedFiles }
+    defaults:     { _controller: SpookyIslandUploadBundle:Application:lastUploadedFiles }
 
 deletetrack:
     pattern:      /deletetrack/
-    defaults:     { _controller: MapbenderUploadBundle:Application:delete }
+    defaults:     { _controller: SpookyIslandUploadBundle:Application:delete }
     
 findtrack:
     pattern:      /findtrack/
-    defaults:     { _controller: MapbenderUploadBundle:Application:find }
+    defaults:     { _controller: SpookyIslandUploadBundle:Application:find }
     
 downloadtrack:
     pattern:      /downloadtrack/
-    defaults:     { _controller: MapbenderUploadBundle:Application:download }
+    defaults:     { _controller: SpookyIslandUploadBundle:Application:download }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mapbender\UploadBundle\Template;
+namespace SpookyIsland\UploadBundle\Template;
 
 use Mapbender\CoreBundle\Component\Template;
 
@@ -26,7 +26,7 @@ class SidebarRight extends Template {
         $js = true) {
         $templating = $this->container->get('templating');
         return $templating
-            ->render('MapbenderUploadBundle:Template:sidebarright.html.twig',
+            ->render('SpookyIslandUploadBundle:Template:sidebarright.html.twig',
                 array(
                     'html' => $html,
                     'css' => $css,
