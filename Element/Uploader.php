@@ -37,7 +37,7 @@ class Uploader extends Element
     {
         return array(
             'js' => array('mapbender.element.uploader.js'),
-            'css' => array('mapbender.element.uploader.css')
+            'css' => array()
         );
     }
 

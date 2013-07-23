@@ -1,5 +1,4 @@
-{# show gps track on a map #}
-    <script type="text/javascript">
+// show gps track on a map
     function poly(pars){
        			var dataExtent;
 				var setExtent = function()
@@ -52,10 +51,8 @@
     			$('.olMap.mb-element').data('mbMap').map.olMap.addControl(highlight);
     			highlight.activate();    			
 		};
-    </script>
     
-  {# server response after deleting track - last uploaded files div #}
-    <script type="text/javascript">
+  // server response after deleting track - last uploaded files div
 		function del(par) {			
 				$.ajax({
 				type: "POST",
@@ -70,11 +67,9 @@
             				}
          				});    				      		            		     		
             	}});         	
-		};	
-	</script>
+		};
 	
-  {# server response after deleting track - search div #}
-	<script type="text/javascript">
+  // server response after deleting track - search div
 		function deltk(par) {			
 				$.ajax({
 				type: "POST",
@@ -91,12 +86,9 @@
             						}
             					});
             	}});         	
-		};	
-	</script>
+		};
 	
-  {# track download #}
-	<script type="text/javascript">     
+  // track download   
 		function downl(param) {		
 				window.location = "/mapbender3/app_dev.php/downloadtrack/?" + $.param({ dname: $(param).attr("name"), dpath: $(param).attr("id") });      	
-		};	
-    </script>
+		};

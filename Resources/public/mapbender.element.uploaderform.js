@@ -1,20 +1,14 @@
-/* (function($) {
+(function($) {
     $.widget('mapbender.mbUploaderForm', {
-       _create: function() {
-           // Setup code
+    /*    _create: function() {
+            var self = this;
+            this.rendergps();
+            this.deletelufd();
+            this.deletesd();
+            this.download(); 
        },
        
-       foo: function(A) {
-           // $('#276').mbUploaderForm('text');
-       },
-       
-       _bar: function(B) {
-       }
-    });
-    
-    {# show gps track on a map #}
-    <script type="text/javascript">
-    function poly(pars){
+       rendergps: function poly(pars){ //show gps track on a map
                 var dataExtent;
                 var setExtent = function()
                 {
@@ -65,12 +59,9 @@
 
                 $('.olMap.mb-element').data('mbMap').map.olMap.addControl(highlight);
                 highlight.activate();               
-        };
-    </script>
-    
-  {# server response after deleting track - last uploaded files div #}
-    <script type="text/javascript">
-        function del(par) {         
+        },
+       
+       deletelufd: function del(par) { // server response after deleting track - last uploaded files div
                 $.ajax({
                 type: "POST",
                 data: { filename: $(par).attr("name"), filepath: $(par).attr("id") },
@@ -84,12 +75,9 @@
                             }
                         });                                                             
                 }});            
-        };  
-    </script>
-    
-  {# server response after deleting track - search div #}
-    <script type="text/javascript">
-        function deltk(par) {           
+        },
+        
+        deletesd: function deltk(par) { // server response after deleting track - search div
                 $.ajax({
                 type: "POST",
                 data: { filename: $(par).attr("name"), filepath: $(par).attr("id") },
@@ -105,15 +93,11 @@
                                     }
                                 });
                 }});            
-        };  
-    </script>
-    
-  {# track download #}
-    <script type="text/javascript">     
-        function downl(param) {     
+        },
+        
+        download: function downl(param) { // track download
                 window.location = "/mapbender3/app_dev.php/downloadtrack/?" + $.param({ dname: $(param).attr("name"), dpath: $(param).attr("id") });        
-        };  
-    </script>
-
+        }
+        */
+    });
 })(jQuery);
-*/
