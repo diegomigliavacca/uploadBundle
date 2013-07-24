@@ -5,7 +5,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Mapbender\CoreBundle\Component\Element;
-use Mapbender\CoreBundle\Entity\Application;
 use SpookyIsland\UploadBundle\Element\Type\UploaderType;
 use SpookyIsland\UploadBundle\Entity\UpFile;
 
@@ -41,7 +40,8 @@ class UploaderButton extends Element
     public function getAssets()
     {
         return array(
-            'js' => array('mapbender.element.uploaderbutton.js'),
+            'js' => array('mapbender.element.uploaderbutton.js',
+            '@SpookyIslandUploadBundle/Resources/public/js/jquery.form.js'),
             'css' => array('mapbender.element.uploaderbutton.css')
         );
     }

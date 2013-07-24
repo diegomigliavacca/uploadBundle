@@ -7,16 +7,16 @@
 			<i class="icon-download-alt icon-2x link"></i>
 		</a>
 		{% if app.user.username == trackitem.usern %}
-		<a id='{{ trackitem.path }}{{ trackitem.name }}' name='{{ trackitem.name }}' title="delete track" class="linkz" type='button' value='delete track' onClick='if (confirm("Are you sure to delete the file?")) {return deltk(this);};return false;'>
-			<p class="icon-stack">
-  				<i class="icon-check-empty icon-stack-base icon-large"></i>
-				<i class="icon-trash icon-large"></i>
-			</p>
-		</a>
+			<a id='{{ trackitem.path }}{{ trackitem.name }}' name='{{ trackitem.name }}' title="delete track" class="linkz" type='button' value='delete track' onClick='if (confirm("Are you sure to delete the file?")) {return deltk(this);};return false;'>
+				<p class="icon-stack">
+  					<i class="icon-check-empty icon-stack-base icon-large"></i>
+					<i class="icon-trash icon-large"></i>
+				</p>
+			</a>
 		{% endif %}
-		<br />{{ trackitem.time }}
-		<br /><i class="icon-male pull-left" title="user"></i> {{ trackitem.usern }}
-		<br /><br />
+		<br>{{ trackitem.time }}
+		<br><i class="icon-male pull-left" title="user"></i> {{ trackitem.usern }}
+		<br><br>
 	</div>
 	
 	{# link toggle after selecting track to zoom #}

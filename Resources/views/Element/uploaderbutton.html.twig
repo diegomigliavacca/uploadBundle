@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="{{ asset('bundles/mapbenderupload/mapbender.element.uploaderbutton.css') }}">
 <script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/mapbenderupload/js/jscolor/jscolor.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/mapbenderupload/js/uploadbundle.js') }}"></script>
 
 <div id="{{ id }}"></div>
 
@@ -45,70 +46,3 @@
 </div>
 
 <a href="#" type="submit" id="showall" title="upload files"><i class='icon-upload icon-large'></i><b> Upload</b></a>
-
-{# shows dialog and tabs #}
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$("#showall").removeAttr("href").click(function(){
-    			$("#tabs").tabs().css("display", "block");
-    			$("#dialog").dialog({height: 690, width: 415, title: "Upload and view tracks"});
-            });
-		})
-	</script>
-
-	{# server response after uploading track #}
-		<script type="text/javascript">		
-			$(document).ready(function(){ 
-				$("#uploaderForm").ajaxForm({ 
-           			success: function(responseText){ 
-            			$('#output').html(responseText);
-            			},
-            		clearForm: true
-         		});
-			})		  
-		</script>
-
-	{# show last 5 uploaded files - last uploaded files div #}
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$("#lastk").click(function(){
-					$.ajax({ 					
-					url: "/mapbender3/app_dev.php/lastuploadedfiles/",
-           			success: function(response){
-            			$('#tracks').html(response);
-            			}
-         			});
-         		});
-			})	
-		</script>
-
-	{# show track after searching - search div #}
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$("#fname").keyup(function(){
-					var datas = $.trim($(this).val());
-					if (datas == ''){
-						$('#find').html('')
-						}
-					else {
-						$.ajax({ 
-							async: false,
-							data: { fname: datas },
-							url: "/mapbender3/app_dev.php/findtrack/",
-           					success: function(response){
-            					$('#find').html(response);
-            				}
-         				});
-         			}
-         		});
-			})
-		</script>
-
-	{# input color reset #}
-		<script type="text/javascript">
-			$(document).ready(function(){ 
-				$("#import").click(function(){
-					document.getElementById('color').color.fromString('#ffffff');
-				});
-			})
-		</script>

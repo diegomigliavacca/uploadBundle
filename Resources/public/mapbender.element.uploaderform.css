@@ -23,12 +23,8 @@ select,input[type="text"]{display:inline-block;height:20px;padding:4px 6px;margi
 /* div_toggle inside uploaderform.html.twig */
 #div_toggle { position:absolute; top:6px; left:8px; height:668px; background: #eee; padding: 10px; margin: 0 0 15px 0; box-shadow: 0 0 5px #666; }
 
-#div_toggle .nav { overflow: hidden; }
-.default { margin: 0 35px 0 35px; }
-.twodiv { margin: 0 0 10px 0 }
-#div_toggle .nav li { width: 107px; float: left; }
-.default2 { margin: 0 55px 0 0; }
-.twodiv2 { margin: 0 9px 0 0; }
+#div_toggle .nav { overflow: hidden; margin: 0 0 10px 0; }
+#div_toggle .nav li { width: 107px; float: left; margin: 0 9px 0 0; }
 #div_toggle .nav li.last { margin-right: 0; }
 #div_toggle .nav li a { width: 97px; display: block; padding: 5px; background: #A09D9B; color: white; font-size: 11px; text-align: center; border: 0; text-decoration: none; }
 

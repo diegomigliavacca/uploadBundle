@@ -36,8 +36,6 @@ class UploaderFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('tooltip', 'text', array('required' => false))
-                ->add('track_uploader', 'checkbox', array('required' => true))
-                ->add('last_uploaded_files', 'checkbox', array('required' => false))
-                ->add('color_picker', 'checkbox', array('required' => false));
+                ->add('track_uploader', 'checkbox', array('required' => true));
     }
 }

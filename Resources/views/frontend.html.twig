@@ -4,12 +4,14 @@
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mapbendercore/mapquery/lib/jquery/themes/base/jquery-ui.css') }}" />
- 	<link rel="stylesheet" href="{{ asset('bundles/mapbenderupload/mapbender.element.uploaderform.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/mapbenderupload/mapbender.element.uploaderform.css') }}">
  	<link rel="stylesheet" href="{{ asset('bundles/mapbenderupload/css/font-awesome/css/font-awesome.min.css') }}" />
 {% endblock %}
 
 {% block content %}
     {% block frontend_content %}{% endblock %}
+    <script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/mapbenderupload/js/uploadbundle.js') }}"></script>
 {% endblock %}
 
 {% block js %}

@@ -52,9 +52,7 @@ class UploaderForm extends Element
     {
         return array(
             "tooltip" => "uploader form",
-            "track_uploader" => true,
-            "last_uploaded_files" => false,
-            "color_picker" => false
+            "track_uploader" => true
             );
     }
 
@@ -123,7 +121,7 @@ class UploaderForm extends Element
                     return new Response("<p style='font-size:17px'>ok, file&nbsp;" . $tk->getName() . "<br />uploaded on&nbsp;" . $tk->time . "<br /><i class='icon-male pull-left' title='user'></i>" . $usernm . "</p>", 200, array('content-type' => 'text/html'));            
                 }
             }
-        else return new Response("file was not uploaded", 400, array('content-type' => 'text/html'));
+            return new Response("file was not uploaded", 400, array('content-type' => 'text/html'));
         }
     }
 
