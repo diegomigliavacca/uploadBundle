@@ -30,22 +30,9 @@ The table UpFile will be created.
 6) Put the following lines inside the application->app->config->routing.yml file:
 	
 	spookyisland_uploadbundle:
-    	resource: "@SpookyIslandUploadBundle/Controller/"
-    	type: annotation
-    
-	uploadbundle:
     	resource: "@SpookyIslandUploadBundle/Resources/config/routing.yml"
 
 <BR />
-**UPLOADERFORM ELEMENT**
-
-To use the UploaderForm element you have to do nothing more. Everything is right inside the bundle.
-
-<BR />
 **UPLOADERBUTTON ELEMENT**
-
-To use the UploaderButton element, you need to copy the following text inside the frontend.html.twig file, which is inside the CoreBundle folder. Put it inside the {% block js %} part:
-
-	<script type="text/javascript" src="{{ asset('bundles/mapbenderupload/js/jquery.form.js') }}"></script>
 
 It's better you put the button inside a toolbar. If you want to put it in a different place (e.g. inside the content part of the template), you need to style the button (file mapbender.element.uploaderbutton.css).
