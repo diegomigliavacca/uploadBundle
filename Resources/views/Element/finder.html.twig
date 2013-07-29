@@ -1,3 +1,4 @@
+<script type="text/javascript" src="{{ asset('bundles/spookyislandupload/js/toggle.js') }}"></script>
 {% for trackitem in foundtk2 %}
 	<div>
 		<a id='{{ trackitem.path }}{{ trackitem.name }}' name='{{ trackitem.color }}' title="view track on map" class='link' href='#' onClick='poly(this);return false;'>
@@ -18,15 +19,4 @@
 		<br><i class="icon-male pull-left" title="user"></i> {{ trackitem.usern }}
 		<br><br>
 	</div>
-	
-	{# link toggle after selecting track to zoom #}
-		<script type="text/javascript">			
-			$("a.link").click(function () {
-				$("a.link").css("color", "#0088cc");
-    			$(this).css("color", "tomato");
-				}, function () {
-				$(this).css("color", "tomato");
-    			$(this).css("color", "#0088cc");
-			});			
-		</script>
 {% endfor %}

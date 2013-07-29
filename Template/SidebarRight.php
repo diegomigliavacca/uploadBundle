@@ -13,7 +13,7 @@ class SidebarRight extends Template {
         parent::getAssets($type);
         $assets = array(
             'css' => array('mapbender.template.sidebarright.css'),
-            'js' => array(),
+            'js' => array()
         );
         return $assets[$type];
     }
