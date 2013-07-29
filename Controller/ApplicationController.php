@@ -30,7 +30,7 @@ class ApplicationController extends Controller
         if ($query) {  
             $em->remove($query);            
             $em->flush();
-            unlink($_SERVER['DOCUMENT_ROOT'].$_POST['filepath']);
+            unlink($this->container->getParameter('kernel.root_dir') . '/../web/'.$_POST['filepath']);
             return new Response("track deleted");
         }
     }
@@ -62,21 +62,19 @@ class ApplicationController extends Controller
             $contentFdTk = $this->container->get('templating')->render('SpookyIslandUploadBundle:Element:finder.html.twig', array(
                 'foundtk2' => $foundtk2
             ));
-        return new Response($contentFdTk);
+            return new Response($contentFdTk);
         }
         return new Response("no tracks found");
     }
 
    public function downloadAction() {
-       $content = file_get_contents($_SERVER['DOCUMENT_ROOT'].$_GET['dpath']);
+       $content = file_get_contents($this->container->getParameter('kernel.root_dir') . '/../web/'.$_GET['dpath']);
       
        $response = new Response();
-       
        $response->headers->set('Content-Description', 'File Transfer');
        $response->headers->set('Content-Type', 'application/octet-stream');
        $response->headers->set('Content-Disposition', 'attachment; filename="'.$_GET['dname']);
        $response->setContent($content);
-       
        return $response;
     }
 }

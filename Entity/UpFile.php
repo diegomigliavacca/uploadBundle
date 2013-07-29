@@ -39,16 +39,10 @@ class UpFile
         return $this->path;
     }
 
-    public function getUploadRootDir()
+    public function getRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return $_SERVER['DOCUMENT_ROOT'].$this->getUploadDir();
-    }
-
-    public function getUploadDir()
-    {
-        // the relative directory path
-        return '/uploads';
+        return $this->rootdir;
     }
     
     public $type;
@@ -132,7 +126,7 @@ class UpFile
             die ("<div style='width:315px; height:140px; border:solid 2px red;'><h4 style='position:relative; left:10px'>Invalid file name!</h4><ul><li style='list-style-type:square; position:relative; left:25px'>file name has to be between 8 and 25 characters</li></ul></div>");
         }
         
-        if (file_exists($this->getUploadRootDir() . "/" . $this->getName())) {
+        if (file_exists($this->getRootDir() . "/" . $this->getName())) {
             die ("<div style='width:315px; height:140px; border:solid 2px red;'><h4 style='position:relative; left:10px'>Invalid file name!</h4><ul><li style='list-style-type:square; position:relative; left:25px'>file name already in the database - <br>rename the file or upload another file</li></ul></div>");
         }
         

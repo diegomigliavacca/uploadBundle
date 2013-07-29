@@ -103,9 +103,10 @@ class UploaderForm extends Element
                 $em = $this->container->get('doctrine')->getManager();
                 $tk->file = $_FILES['uploader']['tmp_name']['file'];
                 $tk->name = $_FILES['uploader']['name']['file']; // set file name for db storing and getter inside UpFile entity
-                $tk->path = $tk->getUploadDir().'/'; // set file path for db storing and getter inside UpFile entity
+                $tk->path = '/uploads/'; // set file path for db storing and getter inside UpFile entity
+                $tk->rootdir = $this->container->getParameter('kernel.root_dir') . '/../web/'.$tk->getPath();
                 if (isset($_POST['color'])) {
-                $tk->color = '#' . $_POST['color']; // set color for db storing
+                    $tk->color = '#' . $_POST['color']; // set color for db storing
                 }
                 else {
                    $tk->color = '#ffffff';
@@ -116,8 +117,7 @@ class UploaderForm extends Element
                 $em->persist($tk); // persisting to db
                 $em->flush();
 
-                // $this->container->getParameter('kernel.root_dir') . '/../web/' . $tk->getUploadDir()
-                if (move_uploaded_file($tk->getFile(), $tk->getUploadRootDir() . "/" . $tk->getName())) {
+                if (move_uploaded_file($tk->getFile(), $tk->getRootDir() . "/" . $tk->getName())) {
                     return new Response("<p style='font-size:17px'>ok, file&nbsp;" . $tk->getName() . "<br />uploaded on&nbsp;" . $tk->time . "<br /><i class='icon-male pull-left' title='user'></i>" . $usernm . "</p>", 200, array('content-type' => 'text/html'));            
                 }
             }
