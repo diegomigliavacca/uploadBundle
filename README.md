@@ -15,7 +15,7 @@ If you didn't find this bundle with your Mapbender3 installation, you need:
 
 2) Copy the assets to the Symfony web folder using the command:
 
-<i>app/console assets: install web</i>
+<i>app/console assets:install web</i>
 
 3) Follow the instructions inside the Mapbender Docs to enable bundle (you need to edit the AppKernel.php file), templates and elements (you need to edit the MapbenderCoreBundle.php file).
 
