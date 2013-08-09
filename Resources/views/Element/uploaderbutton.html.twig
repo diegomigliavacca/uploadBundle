@@ -1,9 +1,9 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('bundles/mapbendercore/mapquery/lib/jquery/themes/base/jquery-ui.css') }}" />
-<link rel="stylesheet" href="{{ asset('bundles/spookyislandupload/css/font-awesome/css/font-awesome.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('bundles/spookyislandupload/mapbender.element.uploaderbutton.css') }}">
+<link rel="stylesheet" href="{{ asset('bundles/spookyislandupload/css/font-awesome/css/font-awesome.min.css') }}" />
 <script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/spookyislandupload/js/jscolor/jscolor.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/spookyislandupload/js/uploadbundle.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/spookyislandupload/js/jscolor/jscolor.js') }}"></script>
 
 <div id="{{ id }}"></div>
 
@@ -19,7 +19,7 @@
         	<div id="select_gps">
 				<form action="{{ path('mapbender_core_application_element', {'slug': appname, 'id': id, 'action': 'upload'} ) }}" id="uploaderForm" method="post" {{ form_enctype(form) }}>
 					{{ form_widget(form) }}
-					<label for="color"><br>Track color<br></label>
+					<label for="color"><br>GPX Track color<br></label>
 					<input type="text" id="color" class="color" name="color">
 					<input id="upload" type="submit" name="submit" class="upload" value="Upload" onClick="$('#output').html('');">
 				</form>
@@ -29,7 +29,7 @@
     
     	<div id="last">
     		<div id="vw">
-				Latest five uploaded gps tracks
+				Latest five uploaded files
 				<div id="tracks" class="tracks"></div>
 			</div>
     	</div>

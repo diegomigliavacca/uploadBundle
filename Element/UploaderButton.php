@@ -103,12 +103,14 @@ class UploaderButton extends Element
                 $em = $this->container->get('doctrine')->getManager();
                 $tk->file = $_FILES['uploader']['tmp_name']['file'];
                 $tk->name = $_FILES['uploader']['name']['file']; // set file name for db storing and getter inside UpFile entity
-                $tk->path = $tk->getUploadDir().'/'; // set file path for db storing and getter inside UpFile entity
+				$tk->ext = substr($tk->getName(), -4);
+                $tk->path = '/uploads/'; // set file path for db storing and getter inside UpFile entity
+                $tk->rootdir = $this->container->getParameter('kernel.root_dir').'/../web/'.$tk->getPath();
                 if (isset($_POST['color'])) {
-                $tk->color = '#' . $_POST['color']; // set color for db storing
+                    $tk->color = '#' . $_POST['color']; // set color for db storing
                 }
                 else {
-                   $tk->color = '#ffffff'; 
+                    $tk->color = '#ffffff';
                 };                
                 $finfo = finfo_open(FILEINFO_MIME_TYPE); $tk->type = finfo_file($finfo, $tk->getFile()); finfo_close($finfo); // set mime type for validation
                 $tk->usern = $usernm;
@@ -116,11 +118,11 @@ class UploaderButton extends Element
                 $em->persist($tk); // persisting to db
                 $em->flush();
 
-                if (move_uploaded_file($tk->getFile(), $tk->getUploadRootDir() . "/" . $tk->getName())) {
+                if (move_uploaded_file($tk->getFile(), $tk->getRootDir() . "/" . $tk->getName())) {
                     return new Response("<p style='font-size:17px'>ok, file&nbsp;" . $tk->getName() . "<br />uploaded on&nbsp;" . $tk->time . "<br /><i class='icon-male pull-left' title='user'></i>" . $usernm . "</p>", 200, array('content-type' => 'text/html'));            
                 }
             }
-        else return new Response("file was not uploaded", 400, array('content-type' => 'text/html'));
+            return new Response("file was not uploaded", 400, array('content-type' => 'text/html'));
         }
     }
 

@@ -12,7 +12,7 @@
 		<div id="select_gps" class="dv">
 			<form action="{{ path('mapbender_core_application_element', {'slug': appname, 'id': id, 'action': 'upload'} ) }}" id="uploaderForm" method="post" {{ form_enctype(form) }}>
 				{{ form_widget(form) }}
-					<label for="color"><br>Track color<br></label>
+					<label for="color"><br>GPX Track color<br></label>
 					<input type="text" id="color" class="color" name="color">
 				<input id="upload" type="submit" name="submit" class="upload" value="Upload" onClick="$('#output').html('');">
 			</form>
@@ -20,10 +20,10 @@
 		</div>
 
 		<div id="vw" class="dv">
-			Latest five uploaded gps tracks
+			Latest five uploaded files
 			<div id="tracks" class="tracks"></div>
 		</div>
-		
+
 		<div id="search_tk" class="dv">
 			<i class="icon-search pull-left"></i>
 				Search by file name or date (dd-mm-yyyy)<br>

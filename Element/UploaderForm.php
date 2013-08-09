@@ -103,13 +103,14 @@ class UploaderForm extends Element
                 $em = $this->container->get('doctrine')->getManager();
                 $tk->file = $_FILES['uploader']['tmp_name']['file'];
                 $tk->name = $_FILES['uploader']['name']['file']; // set file name for db storing and getter inside UpFile entity
+                $tk->ext = substr($tk->getName(), -4);
                 $tk->path = '/uploads/'; // set file path for db storing and getter inside UpFile entity
-                $tk->rootdir = $this->container->getParameter('kernel.root_dir') . '/../web/'.$tk->getPath();
+                $tk->rootdir = $this->container->getParameter('kernel.root_dir').'/../web/'.$tk->getPath();
                 if (isset($_POST['color'])) {
                     $tk->color = '#' . $_POST['color']; // set color for db storing
                 }
                 else {
-                   $tk->color = '#ffffff';
+                    $tk->color = '#ffffff';
                 };                
                 $finfo = finfo_open(FILEINFO_MIME_TYPE); $tk->type = finfo_file($finfo, $tk->getFile()); finfo_close($finfo); // set mime type for validation
                 $tk->usern = $usernm;

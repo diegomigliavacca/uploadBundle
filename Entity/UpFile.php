@@ -52,6 +52,13 @@ class UpFile
         return $this->type;
     }
     
+    public $ext;
+    
+    public function getExt()
+    {
+        return $this->ext;
+    }
+    
     /**
     * @ORM\Column(type="string", length=255)
     * 
@@ -123,18 +130,18 @@ class UpFile
         }
         
         if (mb_strlen($this->getName()) > 25 or mb_strlen($this->getName()) < 8) {
-            die ("<div style='width:315px; height:140px; border:solid 2px red;'><h4 style='position:relative; left:10px'>Invalid file name!</h4><ul><li style='list-style-type:square; position:relative; left:25px'>file name has to be between 8 and 25 characters</li></ul></div>");
+            die ("<div style='width:315px; height:140px; border:solid 2px red;'><h4 style='position:relative; left:10px'>Invalid file name!</h4><ul><li style='list-style-type:square; position:relative; left:25px'>file name has to be between 8 and 25 <br>characters</li></ul></div>");
         }
         
         if (file_exists($this->getRootDir() . "/" . $this->getName())) {
             die ("<div style='width:315px; height:140px; border:solid 2px red;'><h4 style='position:relative; left:10px'>Invalid file name!</h4><ul><li style='list-style-type:square; position:relative; left:25px'>file name already in the database - <br>rename the file or upload another file</li></ul></div>");
         }
         
-        if (substr($this->getName(), -4) !== ".gpx") {
-            die ("<div style='width:315px; height:140px; border:solid 2px red;'><h4 style='position:relative; left:10px'>Invalid file extension!</h4><ul><li style='list-style-type:square; position:relative; left:25px'>file extension must be .gpx</li></ul></div>");
-        }
+        if ($this->getExt() !== ".gpx" and $this->getExt() !== ".kml" and $this->getExt() !== "json") {
+            die ("<div style='width:315px; height:140px; border:solid 2px red;'><h4 style='position:relative; left:10px'>Invalid file extension!</h4><ul><li style='list-style-type:square; position:relative; left:25px'>file extension must be .gpx, .kml, .geojson or .json</li></ul></div>");
+        } 
         
-        if (!$this->getType() == "application/xml" || !$this->getType() == "application/octet-stream") {
+        if (!$this->getType() == "application/xml" || !$this->getType() == "application/octet-stream" || !$this->getType() == "application/json") {
             die ("<div style='width:315px; height:140px; border:solid 2px red;'><h4 style='position:relative; left:px'>Invalid file type!</h4><ul><li style='list-style-type:square; position:relative; left:25px'>the mime type of this file is not allowed</li></ul></div>");
         }
     }

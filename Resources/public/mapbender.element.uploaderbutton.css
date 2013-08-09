@@ -24,3 +24,8 @@ select,input[type="text"]{display:inline-block;padding:4px 6px;margin-bottom:10p
 .tracks {position:relative; top:20px; left:0px; width:335px; height:505px; overflow:auto}
 .find {position:relative; top:10px; left:0px; width:335px; height:465px; overflow:auto}
 .upload {position:relative; top:-7px; left:10px}
+
+.olPopupCloseBox {
+  background: url("../spookyislandupload/images/close.gif") no-repeat;
+  cursor: pointer;
+}

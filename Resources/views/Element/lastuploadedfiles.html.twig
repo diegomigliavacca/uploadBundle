@@ -1,7 +1,7 @@
 <script type="text/javascript" src="{{ asset('bundles/spookyislandupload/js/toggle.js') }}"></script>
 {% for listitem in gb2 %}
 	<div>		
-		<a id='{{ listitem.path }}{{ listitem.name }}' name='{{ listitem.color }}' title="view track on map" class='link' href='#' onClick='poly(this);return false;'>
+		<a id='{{ path }}{{ listitem.name }}' name='{{ listitem.color }}' title="view track on map" class='link' href='#' onClick='poly(this);return false;'>
 			{{ listitem.name }}
 		</a>
 		<a id='{{ listitem.path }}{{ listitem.name }}' name='{{ listitem.name }}' title="download track" class="linkd" type='button' value='download track' onClick='downl(this);return false;'>

@@ -1,16 +1,20 @@
 /* --------------------------------------------------------- TRACK HANDLERS */
-// show gps track on a map
+// show gps tracks and kml files on a map
     function poly(pars){
-                var dataExtent;
-                var setExtent = function()
-                {
-                    if(dataExtent)
-                        dataExtent.extend(this.getDataExtent());
-                    else
-                        dataExtent = this.getDataExtent();
-                    $('.olMap.mb-element').data('mbMap').map.olMap.zoomToExtent(dataExtent);
-                };
-
+        var str = $(pars).attr("id");
+        var n = str.substr(-4);
+        var dataExtent;
+        var setExtent = function() {
+            if(dataExtent) {
+                dataExtent.extend(this.getDataExtent());
+            }
+            else {
+                dataExtent = this.getDataExtent();
+                $('.olMap.mb-element').data('mbMap').map.olMap.zoomToExtent(dataExtent);
+            }
+        };
+        switch(n) {
+            case ".gpx":
                 var lgpx = new OpenLayers.Layer.Vector("Hiking routes", {
                     strategies: [new OpenLayers.Strategy.Fixed()],
                     protocol: new OpenLayers.Protocol.HTTP({
@@ -50,9 +54,91 @@
                 );
 
                 $('.olMap.mb-element').data('mbMap').map.olMap.addControl(highlight);
-                highlight.activate();               
+                highlight.activate();
+                break;
+                
+            case ".kml":
+                var shapes = new OpenLayers.Layer.Vector("KML", {
+                projection: $('.olMap.mb-element').data('mbMap').map.olMap.displayProjection,
+                strategies: [new OpenLayers.Strategy.Fixed()],
+                protocol: new OpenLayers.Protocol.HTTP({
+                    url: $(pars).attr("id"),
+                    headers: {"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"Access-Control-Allow-Origin","Content-Type":"application/xml","Content-Type":"application/octet-stream"},
+                    readWithPOST: true,
+                    format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true
+                    })
+                })
+                });
+
+                shapes.events.register("loadend", shapes, setExtent);
+                $('.olMap.mb-element').data('mbMap').map.olMap.addLayer(shapes);
+
+                select = new OpenLayers.Control.SelectFeature(shapes);
+                
+                function onPopupClose(evt) {
+                    select.unselectAll();
+                }
+                
+                function onFeatureSelect(event) {
+                    var feature = event.feature;
+                    var content;
+                    if (feature.attributes.description) {
+                        content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2>" + feature.attributes.description + "</div>";
+                    }
+                    else {
+                        content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2></div>";
+                    }
+                    if (content.search("<script") != -1) {
+                        content = "Content contained Javascript! Escaped content below.<br>" + content.replace(/</g, "&lt;");
+                    }
+                    popup = new OpenLayers.Popup.FramedCloud("kml", 
+                        feature.geometry.getBounds().getCenterLonLat(),
+                        new OpenLayers.Size(100,100),
+                        content,
+                        null, true, onPopupClose);
+                    feature.popup = popup;
+                    $('.olMap.mb-element').data('mbMap').map.olMap.addPopup(popup);
+                }
+                
+                function onFeatureUnselect(event) {
+                    var feature = event.feature;
+                    if(feature.popup) {
+                        $('.olMap.mb-element').data('mbMap').map.olMap.removePopup(feature.popup);
+                        feature.popup.destroy();
+                        delete feature.popup;
+                    }
+                }
+                
+                shapes.events.on({
+                    "featureselected": onFeatureSelect,
+                    "featureunselected": onFeatureUnselect
+                });
+
+                $('.olMap.mb-element').data('mbMap').map.olMap.addControl(select);
+                select.activate();
+                break;
+                
+            case "json":
+                var j = $.getJSON($(pars).attr("id"));
+
+                var geojson_format = new OpenLayers.Format.GeoJSON();
+                
+                var geojson_layer = new OpenLayers.Layer.Vector();
+
+                geojson_layer.events.register("loadend", geojson_layer, setExtent);
+                $('.olMap.mb-element').data('mbMap').map.olMap.addLayer(geojson_layer);
+
+        //        var geometry = geojson_format.parseGeometry(data);
+             //   geometry.transform(new OpenLayers.Projection("EPSG:4326"), $('.olMap.mb-element').data('mbMap').map.olMap.getProjectionObject());
+
+                var feature = new OpenLayers.Feature.Vector(geojson_format.read(j));
+                geojson_layer.addFeatures(feature);
+                break;
         };
-    
+    };
+
   // server response after deleting track - last uploaded files div
         function del(par) {         
                 $.ajax({

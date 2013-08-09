@@ -1,7 +1,7 @@
 <script type="text/javascript" src="{{ asset('bundles/spookyislandupload/js/toggle.js') }}"></script>
 {% for trackitem in foundtk2 %}
 	<div>
-		<a id='{{ trackitem.path }}{{ trackitem.name }}' name='{{ trackitem.color }}' title="view track on map" class='link' href='#' onClick='poly(this);return false;'>
+		<a id='{{ path2 }}{{ trackitem.name }}' name='{{ trackitem.color }}' title="view track on map" class='link' href='#' onClick='poly(this);return false;'>
 			{{ trackitem.name }}
 		</a>
 		<a id='{{ trackitem.path }}{{ trackitem.name }}' name='{{ trackitem.name }}' title="download track" class="linkd" type='button' value='download track' onClick='downl(this);return false;'>

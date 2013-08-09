@@ -36,8 +36,13 @@ select,input[type="text"]{display:inline-block;height:20px;padding:4px 6px;margi
 
 #div_toggle li a.current, li a:hover { background-color: #525555; color: white; }
 
+.olPopupCloseBox {
+  background: url("../spookyislandupload/images/close.gif") no-repeat;
+  cursor: pointer;
+}
 
-/* from now on, its the mapbender3_theme css with a couple of changes - dropped the * reset, modified p margin at row 692, modified position at row 1286, 
+
+/* from now on, you have the mapbender3_theme css with a couple of changes - dropped the * reset, modified p margin at row 692, modified position at row 1286, 
  * commented rows 788-791 */
 
 /*
