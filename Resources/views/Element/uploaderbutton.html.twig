@@ -19,7 +19,7 @@
         	<div id="select_gps">
 				<form action="{{ path('mapbender_core_application_element', {'slug': appname, 'id': id, 'action': 'upload'} ) }}" id="uploaderForm" method="post" {{ form_enctype(form) }}>
 					{{ form_widget(form) }}
-					<label for="color"><br>GPX Track color<br></label>
+					<label for="color"><br>Choose GPX Track or Json Feature color<br></label>
 					<input type="text" id="color" class="color" name="color">
 					<input id="upload" type="submit" name="submit" class="upload" value="Upload" onClick="$('#output').html('');">
 				</form>

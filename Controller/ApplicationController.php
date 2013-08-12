@@ -20,7 +20,7 @@ class ApplicationController extends Controller
           ));
           return new Response($content);
           }
-          return new Response("track was not uploaded");
+          return new Response("file was not uploaded");
     }
    
    public function deleteAction() {             
@@ -31,9 +31,9 @@ class ApplicationController extends Controller
             $em->remove($query);            
             $em->flush();
             unlink($this->container->getParameter('kernel.root_dir').'/../web/'.$_POST['filepath']);
-            return new Response("track deleted");
+            return new Response("files deleted");
         }
-        return new Response("track was not deleted");
+        return new Response("file could not be deleted");
     }
    
    public function findAction() {
@@ -53,7 +53,7 @@ class ApplicationController extends Controller
                 ));
                 return new Response($contentFdTk);
             }
-            return new Response("no tracks found");                                                       
+            return new Response("no files found");                                                       
         }                            
         $query = $qb->where($qb->expr()->like('fnd.name', '?1'))->setParameter(1, $fname . '%')->getQuery()->execute();
         $foundtk = json_encode($query);
@@ -65,7 +65,7 @@ class ApplicationController extends Controller
             ));
             return new Response($contentFdTk);
         }
-        return new Response("no tracks found");
+        return new Response("no files found");
     }
 
    public function downloadAction() {

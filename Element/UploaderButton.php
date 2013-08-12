@@ -103,7 +103,7 @@ class UploaderButton extends Element
                 $em = $this->container->get('doctrine')->getManager();
                 $tk->file = $_FILES['uploader']['tmp_name']['file'];
                 $tk->name = $_FILES['uploader']['name']['file']; // set file name for db storing and getter inside UpFile entity
-				$tk->ext = substr($tk->getName(), -4);
+                $tk->ext = substr($tk->getName(), -4);
                 $tk->path = '/uploads/'; // set file path for db storing and getter inside UpFile entity
                 $tk->rootdir = $this->container->getParameter('kernel.root_dir').'/../web/'.$tk->getPath();
                 if (isset($_POST['color'])) {
