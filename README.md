@@ -6,7 +6,7 @@ The UploadBundle contains two templates (named "sidebarright" and "sidebarleft")
 
 - KML files (ExtendedData parsing is not supported yet);
 
-- GeoJSON files (not supported yet).
+- GeoJSON files.
 
 The element UploaderForm is strictly bound at the bundle, so it's just usable with the templates made available with this bundle, or with similar templates you will build.
 
@@ -23,7 +23,7 @@ If you didn't find this bundle with your Mapbender3 installation, you need:
 
 <i>app/console assets:install web</i>
 
-3) Follow the instructions inside the Mapbender Docs to enable bundle (you need to edit the AppKernel.php file), templates and elements (you need to edit the MapbenderCoreBundle.php file).
+3) Follow the instructions inside the Mapbender Docs to enable the bundle (you need to edit the AppKernel.php file), templates and elements (you need to edit the MapbenderCoreBundle.php file).
 
 4) Upgrade the database using the following command:
 
