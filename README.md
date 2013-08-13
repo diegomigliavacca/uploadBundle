@@ -31,12 +31,12 @@ If you didn't find this bundle with your Mapbender3 installation, you need:
 
 The table UpFile will be created.
 
-5) If you don't have it installed yet, you will need to install the <i>postgresql-contrib</i> package. You need it to use the <a href="http://www.postgresql.org/docs/9.0/static/citext.html" target="_blank">citext</a> file type. You will have to set the field Name inside the table UpFile at the citext file type if you want to use this feature.
-
-6) Put the following lines inside the Mapbender3 application->app->config->routing.yml file:
+5) Put the following lines inside the Mapbender3 application->app->config->routing.yml file:
 	
 	spookyisland_uploadbundle:
     	resource: "@SpookyIslandUploadBundle/Resources/config/routing.yml"
+
+6) If you are using PostgreSQL as database, you will need to install the <i>postgresql-contrib</i> package. You need it to use the <a href="http://www.postgresql.org/docs/9.0/static/citext.html" target="_blank">citext</a> file type. You will have to set the field Name inside the table UpFile at the citext file type if you want to use this feature.
 
 <BR />
 **UPLOADERBUTTON ELEMENT**
