@@ -1,8 +1,7 @@
 /* --------------------------------------------------------- TRACK HANDLERS */
 // show gps tracks and kml files on a map
     function poly(pars){
-        var str = $(pars).attr("id");
-        var n = str.substr(-4);
+        var n = $(pars).attr("id").substr(-4);
         var dataExtent;
         var setExtent = function() {
             if(dataExtent) {
@@ -89,7 +88,7 @@
                     }
                     else {
                         content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2></div>";
-                    }
+                    };
                     if (content.search("<script") != -1) {
                         content = "Content contained Javascript! Escaped content below.<br>" + content.replace(/</g, "&lt;");
                     }
@@ -121,20 +120,80 @@
                 break;
                 
             case "json":
-                var j = $.getJSON($(pars).attr("id"));
+                var style = new OpenLayers.Style({
+                    pointRadius: 8,
+                    fillColor: $(pars).attr("name"),
+                    fillOpacity: 0.9,
+                    strokeColor: "black",
+                    strokeWidth: 1,
+                    strokeOpacity: 0.8
+                });
 
-                var geojson_format = new OpenLayers.Format.GeoJSON();
-                
-                var geojson_layer = new OpenLayers.Layer.Vector();
+                var geojson_layer = new OpenLayers.Layer.Vector("GeoJSON", {
+                    projection: $('.olMap.mb-element').data('mbMap').map.olMap.getProjectionObject(),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    protocol: new OpenLayers.Protocol.HTTP({
+                        url: $(pars).attr("id"),
+                        format: new OpenLayers.Format.GeoJSON()
+                    }),
+                    styleMap: new OpenLayers.StyleMap({
+                        "default": style,
+                        "select": {
+                            fillColor: "#8aeeef",
+                            strokeColor: "#32a8a9"
+                        }
+                    })
+                });
 
                 geojson_layer.events.register("loadend", geojson_layer, setExtent);
                 $('.olMap.mb-element').data('mbMap').map.olMap.addLayer(geojson_layer);
+                
+                select = new OpenLayers.Control.SelectFeature(geojson_layer);
+                
+                function onPopupClose(evt) {
+                    select.unselectAll();
+                }
+                
+                function onFeatureSelect(event) {
+                    var feature = event.feature;
+                    var content;
+                    if (feature.attributes.description && feature.attributes.type) {
+                        content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2>" + feature.attributes.description + feature.attributes.type + "</div>";
+                    }
+                    else if (!feature.attributes.description) {
+                        content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2>" + feature.attributes.type + "</div>";
+                    }
+                    else if (!feature.attributes.type) {
+                        content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2>" + feature.attributes.description + "</div>";
+                    };
+                    if (content.search("<script") != -1) {
+                        content = "Content contained Javascript! Escaped content below.<br>" + content.replace(/</g, "&lt;");
+                    }
+                    popup = new OpenLayers.Popup.FramedCloud("kml", 
+                        feature.geometry.getBounds().getCenterLonLat(),
+                        new OpenLayers.Size(100,100),
+                        content,
+                        null, true, onPopupClose);
+                    feature.popup = popup;
+                    $('.olMap.mb-element').data('mbMap').map.olMap.addPopup(popup);
+                }
+                
+                function onFeatureUnselect(event) {
+                    var feature = event.feature;
+                    if(feature.popup) {
+                        $('.olMap.mb-element').data('mbMap').map.olMap.removePopup(feature.popup);
+                        feature.popup.destroy();
+                        delete feature.popup;
+                    }
+                }
+                
+                geojson_layer.events.on({
+                    "featureselected": onFeatureSelect,
+                    "featureunselected": onFeatureUnselect
+                });
 
-        //        var geometry = geojson_format.parseGeometry(data);
-             //   geometry.transform(new OpenLayers.Projection("EPSG:4326"), $('.olMap.mb-element').data('mbMap').map.olMap.getProjectionObject());
-
-                var feature = new OpenLayers.Feature.Vector(geojson_format.read(j));
-                geojson_layer.addFeatures(feature);
+                $('.olMap.mb-element').data('mbMap').map.olMap.addControl(select);
+                select.activate();
                 break;
         };
     };
