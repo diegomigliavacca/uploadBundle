@@ -41,4 +41,4 @@ The table UpFile will be created.
 <BR />
 **UPLOADERBUTTON ELEMENT**
 
-It's better you put the button inside a toolbar. If you want to put it in a different place (e.g. inside the content part of a template), you need to style the button (file mapbender.element.uploaderbutton.css).
+It's better you put the button inside a toolbar. If you want to put it in a different place (e.g. inside the content part of a template), you need to style the button (file mapbender.element.uploaderbutton.css), basically color and position.
