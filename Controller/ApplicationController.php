@@ -54,7 +54,7 @@ class ApplicationController extends Controller
                 return new Response($contentFdTk);
             }
             return new Response("no files found");                                                       
-        }                            
+        }
         $query = $qb->where($qb->expr()->like('fnd.name', '?1'))->setParameter(1, $fname . '%')->getQuery()->execute();
         $foundtk = json_encode($query);
 

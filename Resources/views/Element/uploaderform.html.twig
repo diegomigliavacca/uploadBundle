@@ -2,7 +2,7 @@
 
 	<div id="div_toggle">
 		<ul class="nav">
-               <li><a href="#" class="current" data-toggle="#select_gps" type="button" title="upload a gpx file" id="import" tabindex="0" onClick="$('#uploaderForm').trigger('reset'); $('#output').html('');return false;">Upload</a></li>
+               <li><a href="#" class="current" data-toggle="#select_gps" type="button" title="upload a file" id="import" tabindex="0" onClick="$('#uploaderForm').trigger('reset'); $('#output').html('');return false;">Upload</a></li>
                <li><a href="#" data-toggle="#vw" type="submit" id="lastk" tabindex="1" title="view last uploaded files">View</a></li>
                <li class="last"><a href="#" data-toggle="#search_tk" type="button" title="search uploaded files" id="srch" tabindex="2" onClick="$('#find').html(''); $('#fname').val('');return false;">Search</a></li>
     	</ul>
@@ -12,7 +12,7 @@
 		<div id="select_gps" class="dv">
 			<form action="{{ path('mapbender_core_application_element', {'slug': appname, 'id': id, 'action': 'upload'} ) }}" id="uploaderForm" method="post" {{ form_enctype(form) }}>
 				{{ form_widget(form) }}
-					<label for="color"><br>Choose GPX Track or Json Feature color<br></label>
+					<label for="color"><br>Choose GPX Track/Json Feature color<br></label>
 					<input type="text" id="color" class="color" name="color">
 				<input id="upload" type="submit" name="submit" class="upload" value="Upload" onClick="$('#output').html('');">
 			</form>

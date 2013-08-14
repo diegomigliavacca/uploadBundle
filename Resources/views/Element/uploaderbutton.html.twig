@@ -10,7 +10,7 @@
 <div id="dialog">
 	<div id="tabs">
     	<ul>
-        	<li><a href="#import" title="upload a gpx file" onClick="$('#uploaderForm').trigger('reset'); $('#output').html('');return false;">Upload</a></li>
+        	<li><a href="#import" title="upload a file" onClick="$('#uploaderForm').trigger('reset'); $('#output').html('');return false;">Upload</a></li>
         	<li><a href="#last" type="submit" id="lastk" title="view last uploaded files">View</a></li>
         	<li><a href="#srch" title="view last uploaded files" onClick="$('#find').html(''); $('#fname').val('');return false;">Search</a></li>
     	</ul>
@@ -19,7 +19,7 @@
         	<div id="select_gps">
 				<form action="{{ path('mapbender_core_application_element', {'slug': appname, 'id': id, 'action': 'upload'} ) }}" id="uploaderForm" method="post" {{ form_enctype(form) }}>
 					{{ form_widget(form) }}
-					<label for="color"><br>Choose GPX Track or Json Feature color<br></label>
+					<label for="color"><br>Choose GPX Track/Json Feature color<br></label>
 					<input type="text" id="color" class="color" name="color">
 					<input id="upload" type="submit" name="submit" class="upload" value="Upload" onClick="$('#output').html('');">
 				</form>

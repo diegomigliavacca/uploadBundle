@@ -1,14 +1,14 @@
 <script type="text/javascript" src="{{ asset('bundles/spookyislandupload/js/toggle.js') }}"></script>
 {% for listitem in gb2 %}
 	<div>		
-		<a id='{{ path }}{{ listitem.name }}' name='{{ listitem.color }}' title="view track on map" class='link' href='#' onClick='poly(this);return false;'>
+		<a id='{{ path }}{{ listitem.name }}' name='{{ listitem.color }}' title="view features on a map" class='link' href='#' onClick='poly(this);return false;'>
 			{{ listitem.name }}
 		</a>
-		<a id='{{ listitem.path }}{{ listitem.name }}' name='{{ listitem.name }}' title="download track" class="linkd" type='button' value='download track' onClick='downl(this);return false;'>
+		<a id='{{ listitem.path }}{{ listitem.name }}' name='{{ listitem.name }}' title="download file" class="linkd" type='button' value='download file' onClick='downl(this);return false;'>
 			<i class="icon-download-alt icon-2x link"></i>
 		</a>		
 		{% if app.user.username == listitem.usern %}
-			<a id='{{ listitem.path }}{{ listitem.name }}' name='{{ listitem.name }}' title="delete track" class="linkz" type='button' value='delete track' onClick='if (confirm("Are you sure to delete the file?")) {return del(this);return false;}'>
+			<a id='{{ listitem.path }}{{ listitem.name }}' name='{{ listitem.name }}' title="delete file" class="linkz" type='button' value='delete file' onClick='if (confirm("Are you sure to delete the file?")) {return del(this);return false;}'>
 				<p class="icon-stack">
   					<i class="icon-check-empty icon-stack-base icon-large"></i>
 					<i class="icon-trash icon-large"></i>

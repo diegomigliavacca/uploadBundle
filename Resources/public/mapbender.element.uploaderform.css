@@ -8,9 +8,9 @@ select,input[type="text"]{display:inline-block;height:20px;padding:4px 6px;margi
 
 /* links inside lastuploadedfiles.html.twig and inside finder.html.twig */
 .link {margin-right:11px;}
-.linkd {position:relative; top:13px;}
+.linkd {position:relative; top:12px;}
 .linkd:hover {text-decoration: none;}
-.linkz {position:relative; top:13px;}
+.linkz {position:relative; top:12px;}
 .linkz:hover {text-decoration: none;}
 
 /* things inside uploaderform.html.twig */
@@ -21,20 +21,20 @@ select,input[type="text"]{display:inline-block;height:20px;padding:4px 6px;margi
 .upload {position:relative; top:-7px; left:10px}
 
 /* div_toggle inside uploaderform.html.twig */
-#div_toggle { position:absolute; top:6px; left:8px; height:668px; background: #eee; padding: 10px; margin: 0 0 15px 0; box-shadow: 0 0 5px #666; }
+#div_toggle {position:absolute; top:6px; left:8px; height:668px; background: #eee; padding: 10px; margin: 0 0 15px 0; box-shadow: 0 0 5px #666;}
 
-#div_toggle .nav { overflow: hidden; margin: 0 0 10px 0; }
-#div_toggle .nav li { width: 107px; float: left; margin: 0 9px 0 0; }
-#div_toggle .nav li.last { margin-right: 0; }
-#div_toggle .nav li a { width: 97px; display: block; padding: 5px; background: #A09D9B; color: white; font-size: 11px; text-align: center; border: 0; text-decoration: none; }
+#div_toggle .nav {overflow: hidden; margin: 0 0 10px 0;}
+#div_toggle .nav li {width: 107px; float: left; margin: 0 9px 0 0;}
+#div_toggle .nav li.last {margin-right: 0;}
+#div_toggle .nav li a {width: 97px; display: block; padding: 5px; background: #A09D9B; color: white; font-size: 11px; text-align: center; border: 0; text-decoration: none;}
 
-#div_toggle ul { list-style: none; -webkit-padding-start: 0px; -moz-padding-start: 0px; }
-#div_toggle ul li a { display: block; border-bottom: 1px solid #666; padding: 4px; color: #666; }
-#div_toggle ul li a:hover { background: #000; color: white; }
-#div_toggle ul li a:focus { background: #0088cc; color: white; }
-#div_toggle ul li:last-child a { border: none; }
+#div_toggle ul {list-style: none; -webkit-padding-start: 0px; -moz-padding-start: 0px;}
+#div_toggle ul li a {display: block; border-bottom: 1px solid #666; padding: 4px; color: #666;}
+#div_toggle ul li a:hover {background: #000; color: white;}
+#div_toggle ul li a:focus {background: #0088cc; color: white;}
+#div_toggle ul li:last-child a {border: none;}
 
-#div_toggle li a.current, li a:hover { background-color: #525555; color: white; }
+#div_toggle li a.current, li a:hover {background-color: #525555; color: white;}
 
 .olPopupCloseBox {background: url("../spookyislandupload/images/close.gif") no-repeat; cursor: pointer;}
 

@@ -138,7 +138,7 @@ class UpFile
         }
         
         if ($this->getExt() !== ".gpx" and $this->getExt() !== ".kml" and $this->getExt() !== "json") {
-            die ("<div style='width:315px; height:140px; border:solid 2px red;'><h4 style='position:relative; left:10px'>Invalid file extension!</h4><ul><li style='list-style-type:square; position:relative; left:25px'>file extension must be .gpx, .kml, .geojson or .json</li></ul></div>");
+            die ("<div style='width:315px; height:140px; border:solid 2px red;'><h4 style='position:relative; left:10px'>Invalid file extension!</h4><ul><li style='list-style-type:square; position:relative; left:25px'>file extension must be .gpx, .kml, .json or .geojson</li></ul></div>");
         } 
         
         if (!$this->getType() == "application/xml" || !$this->getType() == "application/octet-stream" || !$this->getType() == "application/json") {
