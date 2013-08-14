@@ -1,5 +1,5 @@
 /* --------------------------------------------------------- TRACK HANDLERS */
-// show gps tracks and kml files on a map
+// show gps tracks, kml and geojson files on a map
     function poly(pars){
         var n = $(pars).attr("id").substr(-4);
         var dataExtent;
@@ -32,7 +32,7 @@
                         strokeColor: $(pars).attr("name"),
                         strokeWidth: 5,
                         strokeOpacity: 1,
-                        label: $(pars).attr("id").substring(9),
+                        label: $(pars).attr("id").substring($(pars).attr("id").lastIndexOf("/")+1),
                         labelAlign: 'cm',
                         labelYOffset: 6,
                         fontSize: 15,
@@ -91,7 +91,7 @@
                     };
                     if (content.search("<script") != -1) {
                         content = "Content contained Javascript! Escaped content below.<br>" + content.replace(/</g, "&lt;");
-                    }
+                    };
                     popup = new OpenLayers.Popup.FramedCloud("kml", 
                         feature.geometry.getBounds().getCenterLonLat(),
                         new OpenLayers.Size(100,100),
@@ -120,15 +120,6 @@
                 break;
                 
             case "json":
-                var style = new OpenLayers.Style({
-                    pointRadius: 8,
-                    fillColor: $(pars).attr("name"),
-                    fillOpacity: 0.9,
-                    strokeColor: "black",
-                    strokeWidth: 1,
-                    strokeOpacity: 0.8
-                });
-
                 var geojson_layer = new OpenLayers.Layer.Vector("GeoJSON", {
                     projection: $('.olMap.mb-element').data('mbMap').map.olMap.getProjectionObject(),
                     strategies: [new OpenLayers.Strategy.Fixed()],
@@ -137,7 +128,14 @@
                         format: new OpenLayers.Format.GeoJSON()
                     }),
                     styleMap: new OpenLayers.StyleMap({
-                        "default": style,
+                        "default": new OpenLayers.Style({
+                            pointRadius: 8,
+                            fillColor: $(pars).attr("name"),
+                            fillOpacity: 0.9,
+                            strokeColor: "black",
+                            strokeWidth: 1,
+                            strokeOpacity: 0.8
+                        }),
                         "select": {
                             fillColor: "#8aeeef",
                             strokeColor: "#32a8a9"
@@ -168,7 +166,7 @@
                     };
                     if (content.search("<script") != -1) {
                         content = "Content contained Javascript! Escaped content below.<br>" + content.replace(/</g, "&lt;");
-                    }
+                    };
                     popup = new OpenLayers.Popup.FramedCloud("kml", 
                         feature.geometry.getBounds().getCenterLonLat(),
                         new OpenLayers.Size(100,100),
@@ -195,10 +193,10 @@
                 $('.olMap.mb-element').data('mbMap').map.olMap.addControl(select);
                 select.activate();
                 break;
-        };
+        }
     };
 
-  // server response after deleting track - last uploaded files div
+  // server response after deleting file - last uploaded files div
         function del(par) {         
                 $.ajax({
                 type: "POST",
@@ -215,7 +213,7 @@
                 }});            
         };
     
-  // server response after deleting track - search div
+  // server response after deleting file - search div
         function deltk(par) {           
                 $.ajax({
                 type: "POST",
@@ -234,19 +232,18 @@
                 }});            
         };
     
-  // track download   
+  // file download   
         function downl(param) {     
                 window.location = "/mapbender3/app_dev.php/downloadtrack/?" + $.param({ dname: $(param).attr("name"), dpath: $(param).attr("id") });        
         };
 
-/* --------------------------------------------------------- SIDEBAR HANDLERS */
+/* --------------------------------------------------------- FORM HANDLERS */
   //  3 buttons div toggle at the top of the sidebar        
         $("a[data-toggle]").on("click", function(e) {
                 e.preventDefault();  // cancel the default action of the click
-                var selector = $(this).data("toggle");  // get relating element
                 $(".d").find(".dv").hide();
                 $("li").find("a").removeClass("current");
-                $(selector).show();
+                $($(this).data("toggle")).show();
                 $(this).addClass("current");                
             });
 
@@ -257,7 +254,7 @@
                     });
             });
 
-  //  server response after uploading track
+  //  server response after uploading file
         $(document).ready(function(){ 
                 $("#uploaderForm").ajaxForm({ 
                     success: function(responseText){ 
@@ -279,17 +276,16 @@
                 });
         });
 
-  //  show track after searching - search div        
+  //  show file after searching - search div        
         $(document).ready(function(){
                 $("#fname").keyup(function(){
-                    var datas = $.trim($(this).val());
-                    if (datas == ''){
+                    if ($.trim($(this).val()) == ''){
                         $('#find').html('')
                         }
                     else {
                         $.ajax({ 
                             async: false,
-                            data: { fname: datas },
+                            data: { fname: $.trim($(this).val()) },
                             url: "/mapbender3/app_dev.php/findtrack/",
                             success: function(response){
                                 $('#find').html(response);
@@ -304,6 +300,6 @@
         $(document).ready(function(){
             $("#showall").removeAttr("href").click(function(){
                 $("#tabs").tabs().css("display", "block");
-                $("#dialog").dialog({height: 690, width: 415, title: "Upload and view tracks"});
+                $("#dialog").dialog({height: 690, width: 415, title: "Upload and view files"});
             });
         });
