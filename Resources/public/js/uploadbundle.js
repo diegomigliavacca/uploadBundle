@@ -1,7 +1,6 @@
 /* --------------------------------------------------------- TRACK HANDLERS */
 // show gps tracks, kml and geojson files on a map
     function poly(pars){
-        var n = $(pars).attr("id").substr(-4);
         var dataExtent;
         var setExtent = function() {
             if(dataExtent) {
@@ -12,48 +11,111 @@
                 $('.olMap.mb-element').data('mbMap').map.olMap.zoomToExtent(dataExtent);
             }
         };
-        switch(n) {
+        switch($(pars).attr("id").substr(-4)) {
             case ".gpx":
-                var lgpx = new OpenLayers.Layer.Vector("Hiking routes", {
-                    strategies: [new OpenLayers.Strategy.Fixed()],
-                    protocol: new OpenLayers.Protocol.HTTP({
+                var format = new OpenLayers.Format.GPX({ keepData: true });
+
+                var protocol = new OpenLayers.Protocol.HTTP({
                         url: $(pars).attr("id"),
-                        format: new OpenLayers.Format.GPX()
-                    }),
-                    style: {strokeColor: $(pars).attr("name"), strokeWidth: 6, strokeOpacity: 1},
-                    projection: new OpenLayers.Projection("EPSG:4326")
+                        headers: {"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"Access-Control-Allow-Origin","Content-Type":"application/xml","Content-Type":"application/octet-stream"},
+                        readWithPOST: true,
+                        format: format
+                });
+
+                var lgpx = new OpenLayers.Layer.Vector("Gpx", {
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    protocol: protocol,
+                    projection: new OpenLayers.Projection("EPSG:4326"),
+                    styleMap: new OpenLayers.StyleMap({
+                        "default": new OpenLayers.Style(OpenLayers.Util.applyDefaults({
+                            strokeColor: $(pars).attr("name"),
+                            strokeWidth: 6,
+                            strokeOpacity: 1
+                            }, OpenLayers.Feature.Vector.style["default"])),
+                        "select": new OpenLayers.Style(OpenLayers.Util.applyDefaults({
+                            fillColor: "#8aeeef",
+                            strokeColor: "#32a8a9",
+                            strokeWidth: 5,
+                            strokeOpacity: 1
+                        }, OpenLayers.Feature.Vector.style["select"])),
+                        "highlight": new OpenLayers.Style(OpenLayers.Util.applyDefaults({
+                            strokeColor: $(pars).attr("name"),
+                            strokeWidth: 5,
+                            strokeOpacity: 1,
+                            label: $(pars).attr("id").substring($(pars).attr("id").lastIndexOf("/")+1),
+                            labelAlign: 'cm',
+                            labelYOffset: 6,
+                            fontSize: 15,
+                            fontFamily: "Arial",
+                            fontColor: "red",
+                            fontWeight: "bold",
+                            cursor: "pointer"
+                        }, OpenLayers.Feature.Vector.style["highlight"]))
+                    })
                 });
 
                 lgpx.events.register("loadend", lgpx, setExtent);
                 $('.olMap.mb-element').data('mbMap').map.olMap.addLayer(lgpx);
-                
-                function highlightSelected(feature){
-                    hoverStyle = {
-                        strokeColor: $(pars).attr("name"),
-                        strokeWidth: 5,
-                        strokeOpacity: 1,
-                        label: $(pars).attr("id").substring($(pars).attr("id").lastIndexOf("/")+1),
-                        labelAlign: 'cm',
-                        labelYOffset: 6,
-                        fontSize: 15,
-                        fontFamily: "Arial",
-                        fontColor: "red",
-                        fontWeight: "bold",
-                        cursor: "pointer"
-                    };
-                    lgpx.drawFeature(feature, hoverStyle);                  
+
+                select = new OpenLayers.Control.SelectFeature(lgpx);
+
+                function onPopupClose(evt) {
+                    select.unselectAll();
                 }
 
-                var highlight = new OpenLayers.Control.SelectFeature(
-                    lgpx, {
-                            clickout: false, toggle: false,
-                            multiple: false, hover: true,
-                            onSelect: highlightSelected
-                    }
-                );
+                function onFeatureSelect(event) {
+                    var feature = event.feature;
+                    var len = feature.geometry.getGeodesicLength()/1000;
+                    var kms = +(parseFloat(len).toFixed(2));
+                    var content_gpx = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + $(pars).attr("id").substring($(pars).attr("id").lastIndexOf("/")+1) + "</h2>";
+                    if (feature.attributes.desc) {content_gpx += feature.attributes.desc + "<br />"};
+                    if (feature.attributes.time) {content_gpx += "<b>Time:</b> " + feature.attributes.time + "<br />"};
+                    content_gpx += "<b>Length:</b> " + kms + " km<br />";
+                    if (feature.attributes.ele) {content_gpx += "<b>Elevation:</b> " + feature.attributes.ele + " m"};
+                    content_gpx += "</div>";
+                    if (content_gpx.search("<script") != -1) {
+                        content_gpx = "Content contained Javascript! Escaped content below.<br>" + content_gpx.replace(/</g, "&lt;");
+                    };
+                    popup = new OpenLayers.Popup.FramedCloud("gpx", 
+                        feature.geometry.getBounds().getCenterLonLat(),
+                        new OpenLayers.Size(100,100),
+                        content_gpx,
+                        null, true, onPopupClose);
+                    feature.popup = popup;
+                    $('.olMap.mb-element').data('mbMap').map.olMap.addPopup(popup);
+                }
 
+                function onFeatureUnselect(event) {
+                    var feature = event.feature;
+                    if(feature.popup) {
+                        $('.olMap.mb-element').data('mbMap').map.olMap.removePopup(feature.popup);
+                        feature.popup.destroy();
+                        delete feature.popup;
+                    }
+                }
+                
+                lgpx.events.on({
+                    "featureselected": onFeatureSelect,
+                    "featureunselected": onFeatureUnselect
+                });
+
+                highlight = new OpenLayers.Control.SelectFeature(lgpx, {
+                    clickout: false,
+                    hover: true,
+                    highlightOnly:true,
+                    eventListeners:{
+                        featurehighlighted: function (event) {
+                            event.feature.layer.drawFeature(
+                                event.feature, 'highlight'
+                                );
+                            }
+                        }
+                    });
+
+                $('.olMap.mb-element').data('mbMap').map.olMap.addControl(select);
                 $('.olMap.mb-element').data('mbMap').map.olMap.addControl(highlight);
                 highlight.activate();
+                select.activate();
                 break;
                 
             case ".kml":
@@ -64,31 +126,24 @@
                     url: $(pars).attr("id"),
                     headers: {"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"Access-Control-Allow-Origin","Content-Type":"application/xml","Content-Type":"application/octet-stream"},
                     readWithPOST: true,
-                    format: new OpenLayers.Format.KML({
-                        extractStyles: true,
-                        extractAttributes: true
-                    })
-                })
+                    format: new OpenLayers.Format.KML({extractStyles: true})
+                   })
                 });
 
                 shapes.events.register("loadend", shapes, setExtent);
                 $('.olMap.mb-element').data('mbMap').map.olMap.addLayer(shapes);
 
                 select = new OpenLayers.Control.SelectFeature(shapes);
-                
+
                 function onPopupClose(evt) {
                     select.unselectAll();
                 }
-                
+
                 function onFeatureSelect(event) {
                     var feature = event.feature;
-                    var content;
-                    if (feature.attributes.description) {
-                        content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2>" + feature.attributes.description + "</div>";
-                    }
-                    else {
-                        content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2></div>";
-                    };
+                    var content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2>";
+                    if (feature.attributes.description) {content += feature.attributes.description};
+                    content += "</div>";
                     if (content.search("<script") != -1) {
                         content = "Content contained Javascript! Escaped content below.<br>" + content.replace(/</g, "&lt;");
                     };
@@ -154,23 +209,17 @@
                 
                 function onFeatureSelect(event) {
                     var feature = event.feature;
-                    var content;
-                    if (feature.attributes.description && feature.attributes.type) {
-                        content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2>" + feature.attributes.description + feature.attributes.type + "</div>";
-                    }
-                    else if (!feature.attributes.description) {
-                        content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2>" + feature.attributes.type + "</div>";
-                    }
-                    else if (!feature.attributes.type) {
-                        content = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2>" + feature.attributes.description + "</div>";
+                    var content_json = "<div style='width:100%; height:100%; min-height:42px; overflow:auto'><h2>" + feature.attributes.name + "</h2>";
+                    if (feature.attributes.description) {content_json += feature.attributes.description + "<br />"};
+                    if (feature.attributes.type) {content_json += feature.attributes.type};
+                    content_json += "</div>";
+                    if (content_json.search("<script") != -1) {
+                        content_json = "Content contained Javascript! Escaped content below.<br>" + content_json.replace(/</g, "&lt;");
                     };
-                    if (content.search("<script") != -1) {
-                        content = "Content contained Javascript! Escaped content below.<br>" + content.replace(/</g, "&lt;");
-                    };
-                    popup = new OpenLayers.Popup.FramedCloud("kml", 
+                    popup = new OpenLayers.Popup.FramedCloud("geojson", 
                         feature.geometry.getBounds().getCenterLonLat(),
                         new OpenLayers.Size(100,100),
-                        content,
+                        content_json,
                         null, true, onPopupClose);
                     feature.popup = popup;
                     $('.olMap.mb-element').data('mbMap').map.olMap.addPopup(popup);
