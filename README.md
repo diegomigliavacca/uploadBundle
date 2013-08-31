@@ -1,6 +1,6 @@
 **INFOS**
 
-The UploadBundle contains two templates (named "sidebarright" and "sidebarleft") and two elements (named "UploaderForm" and "UploaderButton"). These elements permit to upload, view and zoom:
+The UploadBundle contains a template (named "sidebarright") and two elements (named "UploaderForm" and "UploaderButton"). These elements permit to upload, view and zoom:
 
 - GPX tracks;
 
@@ -31,7 +31,7 @@ If you didn't find this bundle with your Mapbender3 installation, you need:
 
 The table UpFile will be created.
 
-5) Put the following lines inside the Mapbender3 application->app->config->routing.yml file:
+5) Add the following lines to the Mapbender3 application->app->config->routing.yml file:
 	
 	spookyisland_uploadbundle:
     	resource: "@SpookyIslandUploadBundle/Resources/config/routing.yml"
