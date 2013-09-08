@@ -7,35 +7,29 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * 
+ *
  */
-class UploaderFormType extends AbstractType
-{
+class UploaderFormType extends AbstractType {
 
-    /**
-     * @inheritdoc
-     */
-    public function getName()
-    {
-        return 'uploaderform';
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function getName() {
+		return 'uploaderform';
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'application' => null
-        ));
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function setDefaultOptions(OptionsResolverInterface $resolver) {
+		$resolver -> setDefaults(array('application' => null));
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('tooltip', 'text', array('required' => false))
-                ->add('track_uploader', 'checkbox', array('required' => true));
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function buildForm(FormBuilderInterface $builder, array $options) {
+		$builder -> add('tooltip', 'text', array('required' => false)) -> add('track_uploader', 'checkbox', array('required' => true));
+	}
+
 }

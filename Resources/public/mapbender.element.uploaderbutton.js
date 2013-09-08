@@ -1,5 +1,4 @@
 (function($) {
-    $.widget('mapbender.mbUploaderButton', {
-        
-    });
+	$.widget('mapbender.mbUploaderButton', {
+	});
 })(jQuery);
