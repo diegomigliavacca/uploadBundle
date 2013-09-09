@@ -7,7 +7,7 @@ function poly(pars) {
 			dataExtent.extend(this.getDataExtent());
 		} else {
 			dataExtent = this.getDataExtent();
-			$('.olMap.mb-element').data('mbMap').map.olMap.zoomToExtent(dataExtent);
+			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.zoomToExtent(dataExtent);
 		}
 	};
 	switch($(pars).attr("id").substr(-4)) {
@@ -61,7 +61,7 @@ function poly(pars) {
 			});
 
 			lgpx.events.register("loadend", lgpx, setExtent);
-			$('.olMap.mb-element').data('mbMap').map.olMap.addLayer(lgpx);
+			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addLayer(lgpx);
 
 			var highlight = new OpenLayers.Control.SelectFeature(lgpx, {
 				hover : true,
@@ -72,7 +72,7 @@ function poly(pars) {
 				lgpx.drawFeature(event.feature, "temporary");
 			});
 
-			$('.olMap.mb-element').data('mbMap').map.olMap.addControl(highlight);
+			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addControl(highlight);
 			highlight.activate();
 
 			var select_gpx = new OpenLayers.Control.SelectFeature(lgpx);
@@ -102,13 +102,13 @@ function poly(pars) {
 				};
 				popup = new OpenLayers.Popup.FramedCloud("gpx", feature.geometry.getBounds().getCenterLonLat(), new OpenLayers.Size(100, 100), content_gpx, null, true, onPopupClosing);
 				feature.popup = popup;
-				$('.olMap.mb-element').data('mbMap').map.olMap.addPopup(popup);
+				$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addPopup(popup);
 			}
 
 			function onGpxUnselect(event) {
 				var feature = event.feature;
 				if (feature.popup) {
-					$('.olMap.mb-element').data('mbMap').map.olMap.removePopup(feature.popup);
+					$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.removePopup(feature.popup);
 					feature.popup.destroy();
 					delete feature.popup;
 				}
@@ -119,13 +119,13 @@ function poly(pars) {
 				"featureunselected" : onGpxUnselect
 			});
 
-			$('.olMap.mb-element').data('mbMap').map.olMap.addControl(select_gpx);
+			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addControl(select_gpx);
 			select_gpx.activate();
 			break;
 
 		case ".kml":
 			var shapes = new OpenLayers.Layer.Vector("KML", {
-				projection : $('.olMap.mb-element').data('mbMap').map.olMap.displayProjection,
+				projection : $('.olMap.mb-element').data('mapbenderMbMap').map.olMap.displayProjection,
 				strategies : [new OpenLayers.Strategy.Fixed()],
 				protocol : new OpenLayers.Protocol.HTTP({
 					url : $(pars).attr("id"),
@@ -143,7 +143,7 @@ function poly(pars) {
 			});
 
 			shapes.events.register("loadend", shapes, setExtent);
-			$('.olMap.mb-element').data('mbMap').map.olMap.addLayer(shapes);
+			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addLayer(shapes);
 
 			var select = new OpenLayers.Control.SelectFeature(shapes);
 
@@ -163,13 +163,13 @@ function poly(pars) {
 				};
 				popup = new OpenLayers.Popup.FramedCloud("kml", feature.geometry.getBounds().getCenterLonLat(), new OpenLayers.Size(100, 100), content, null, true, onPopupClose);
 				feature.popup = popup;
-				$('.olMap.mb-element').data('mbMap').map.olMap.addPopup(popup);
+				$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addPopup(popup);
 			}
 
 			function onFeatureUnselect(event) {
 				var feature = event.feature;
 				if (feature.popup) {
-					$('.olMap.mb-element').data('mbMap').map.olMap.removePopup(feature.popup);
+					$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.removePopup(feature.popup);
 					feature.popup.destroy();
 					delete feature.popup;
 				}
@@ -180,13 +180,13 @@ function poly(pars) {
 				"featureunselected" : onFeatureUnselect
 			});
 
-			$('.olMap.mb-element').data('mbMap').map.olMap.addControl(select);
+			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addControl(select);
 			select.activate();
 			break;
 
 		case "json":
 			var geojson_layer = new OpenLayers.Layer.Vector("GeoJSON", {
-				projection : $('.olMap.mb-element').data('mbMap').map.olMap.getProjectionObject(),
+				projection : $('.olMap.mb-element').data('mapbenderMbMap').map.olMap.getProjectionObject(),
 				strategies : [new OpenLayers.Strategy.Fixed()],
 				protocol : new OpenLayers.Protocol.HTTP({
 					url : $(pars).attr("id"),
@@ -209,7 +209,7 @@ function poly(pars) {
 			});
 
 			geojson_layer.events.register("loadend", geojson_layer, setExtent);
-			$('.olMap.mb-element').data('mbMap').map.olMap.addLayer(geojson_layer);
+			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addLayer(geojson_layer);
 
 			var select_json = new OpenLayers.Control.SelectFeature(geojson_layer);
 
@@ -232,13 +232,13 @@ function poly(pars) {
 				};
 				popup = new OpenLayers.Popup.FramedCloud("geojson", feature.geometry.getBounds().getCenterLonLat(), new OpenLayers.Size(100, 100), content_json, null, true, onClosePopup);
 				feature.popup = popup;
-				$('.olMap.mb-element').data('mbMap').map.olMap.addPopup(popup);
+				$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addPopup(popup);
 			}
 
 			function onJsonUnselect(event) {
 				var feature = event.feature;
 				if (feature.popup) {
-					$('.olMap.mb-element').data('mbMap').map.olMap.removePopup(feature.popup);
+					$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.removePopup(feature.popup);
 					feature.popup.destroy();
 					delete feature.popup;
 				}
@@ -249,7 +249,7 @@ function poly(pars) {
 				"featureunselected" : onJsonUnselect
 			});
 
-			$('.olMap.mb-element').data('mbMap').map.olMap.addControl(select_json);
+			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addControl(select_json);
 			select_json.activate();
 			break;
 	}
