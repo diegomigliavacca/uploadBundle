@@ -36,21 +36,18 @@ select, input[type="text"] {
 }
 
 /* links inside lastuploadedfiles.html.twig and inside finder.html.twig */
+.dashed {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: dashed 1px #b3b3b3;
+}
 .link {
-    margin-right: 11px;
-}
-.linkd {
+    float: right;
     position: relative;
-    top: 12px;
+    top: 8px;
+    margin-right: 10px;
 }
-.linkd:hover {
-    text-decoration: none;
-}
-.linkz {
-    position: relative;
-    top: 12px;
-}
-.linkz:hover {
+.link:hover {
     text-decoration: none;
 }
 

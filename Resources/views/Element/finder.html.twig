@@ -1,22 +1,22 @@
 <script type="text/javascript" src="{{ asset('bundles/spookyislandupload/js/toggle.js') }}"></script>
 {% for trackitem in foundtk2 %}
-	<div>
-		<a id='{{ path2 }}{{ trackitem.name }}' name='{{ trackitem.color }}' title="view features on a map" class='link' href='#' onClick='poly(this);return false;'>
+	<div class="dashed">
+		<a id='{{ path2 }}{{ trackitem.name }}' name='{{ trackitem.color }}' title="view {{ trackitem.name }} on the map" href='#' onClick='poly(this);return false;'>
 			{{ trackitem.name }}
 		</a>
-		<a id='{{ trackitem.path }}{{ trackitem.name }}' name='{{ trackitem.name }}' title="download file" class="linkd" type='button' value='download file' onClick='downl(this);return false;'>
-			<i class="icon-download-alt icon-2x link"></i>
-		</a>
 		{% if app.user.username == trackitem.usern %}
-			<a id='{{ trackitem.path }}{{ trackitem.name }}' name='{{ trackitem.name }}' title="delete file" class="linkz" type='button' value='delete file' onClick='if (confirm("Are you sure to delete the file?")) {return deltk(this);};return false;'>
+			<a id='{{ trackitem.path }}{{ trackitem.name }}' name='{{ trackitem.name }}' title="delete {{ trackitem.name }}" class="link" type='button' value='delete file' onClick='if (confirm("Are you sure to delete the file?")) {return deltk(this);};return false;'>
 				<p class="icon-stack">
   					<i class="icon-check-empty icon-stack-base icon-large"></i>
 					<i class="icon-trash icon-large"></i>
 				</p>
 			</a>
 		{% endif %}
+		<a id='{{ trackitem.path }}{{ trackitem.name }}' name='{{ trackitem.name }}' title="download {{ trackitem.name }}" class="link" type='button' value='download file' onClick='downl(this);return false;'>
+			<i class="icon-download-alt icon-2x"></i>
+		</a>
 		<br>{{ trackitem.time }}
 		<br><i class="icon-male pull-left" title="user"></i> {{ trackitem.usern }}
-		<br><br>
+		<br>
 	</div>
 {% endfor %}
