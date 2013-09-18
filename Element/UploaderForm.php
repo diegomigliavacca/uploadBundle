@@ -72,8 +72,8 @@ class UploaderForm extends Element {
 		$ff = $this -> container -> get('form.factory');
 		$form = $ff -> create(new UploaderType());
 		$request = $this -> container -> get('request');
+		//obtaining the username from the session token
 		$usernm = $this -> container -> get('security.context') -> getToken() -> getUser() -> getUsername();
-		//obtaining username from the session token
 
 		if ($request -> isMethod('POST')) {
 			$form -> bind($request);
@@ -81,31 +81,31 @@ class UploaderForm extends Element {
 			if ($form -> isValid()) {
 				$em = $this -> container -> get('doctrine') -> getManager();
 				$tk -> file = $_FILES['uploader']['tmp_name']['file'];
-				$tk -> name = $_FILES['uploader']['name']['file'];
 				// set file name for db storing and getter inside UpFile entity
+				$tk -> name = $_FILES['uploader']['name']['file'];
 				$tk -> ext = substr($tk -> getName(), -4);
-				$tk -> path = '/uploads/';
 				// set file path for db storing and getter inside UpFile entity
+				$tk -> path = '/uploads/';
 				$tk -> rootdir = $this -> container -> getParameter('kernel.root_dir') . '/../web/' . $tk -> getPath();
 				if (isset($_POST['color'])) {
-					$tk -> color = '#' . $_POST['color'];
 					// set color for db storing
+					$tk -> color = '#' . $_POST['color'];
 				} else {
 					$tk -> color = '#ffffff';
 				};
 				$finfo = finfo_open(FILEINFO_MIME_TYPE);
+				// set mime type for validation
 				$tk -> type = finfo_file($finfo, $tk -> getFile());
 				finfo_close($finfo);
-				// set mime type for validation
 				$tk -> usern = $usernm;
-				$tk -> validation();
 				// validation function is inside UpFile entity
-				$em -> persist($tk);
+				$tk -> validation();
 				// persisting to db
+				$em -> persist($tk);
 				$em -> flush();
 
 				if (move_uploaded_file($tk -> getFile(), $tk -> getRootDir() . "/" . $tk -> getName())) {
-					return new Response("<p style='font-size:17px'>ok, file&nbsp;" . $tk -> getName() . "<br />uploaded on&nbsp;" . $tk -> time . "<br /><i class='icon-male pull-left' title='user'></i>" . $usernm . "</p>", 200, array('content-type' => 'text/html'));
+					return new Response("<p style='font-size:17px'>ok, file " . $tk -> getName() . "<br />uploaded on " . $tk -> time . "<br /><i class='icon-male pull-left' title='user'></i>" . $usernm . "</p>", 200, array('content-type' => 'text/html'));
 				}
 			}
 			return new Response("file was not uploaded", 400, array('content-type' => 'text/html'));
