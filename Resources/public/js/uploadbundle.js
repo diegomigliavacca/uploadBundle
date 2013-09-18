@@ -36,13 +36,15 @@ function poly(pars) {
 					"default" : new OpenLayers.Style({
 						strokeColor : $(pars).attr("name"),
 						strokeWidth : 6,
-						strokeOpacity : 1
+						strokeOpacity : 1,
+						cursor : "pointer"
 					}),
 					"select" : new OpenLayers.Style({
 						fillColor : "#8aeeef",
 						strokeColor : "#32a8a9",
 						strokeWidth : 6,
-						strokeOpacity : 1
+						strokeOpacity : 1,
+						cursor : "pointer"
 					}),
 					"temporary" : new OpenLayers.Style({
 						strokeColor : $(pars).attr("name"),
@@ -63,7 +65,7 @@ function poly(pars) {
 			lgpx.events.register("loadend", lgpx, setExtent);
 			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addLayer(lgpx);
 
-			var highlight = new OpenLayers.Control.SelectFeature(lgpx, {
+		/*	var highlight = new OpenLayers.Control.SelectFeature(lgpx, {
 				hover : true,
 				highlightOnly : true
 			});
@@ -73,7 +75,7 @@ function poly(pars) {
 			});
 
 			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addControl(highlight);
-			highlight.activate();
+			highlight.activate();  */
 
 			var select_gpx = new OpenLayers.Control.SelectFeature(lgpx);
 
@@ -199,11 +201,13 @@ function poly(pars) {
 						fillOpacity : 0.9,
 						strokeColor : "black",
 						strokeWidth : 1,
-						strokeOpacity : 0.8
+						strokeOpacity : 0.8,
+						cursor : "pointer"
 					}),
 					"select" : {
 						fillColor : "#8aeeef",
-						strokeColor : "#32a8a9"
+						strokeColor : "#32a8a9",
+						cursor : "pointer"
 					}
 				})
 			});
