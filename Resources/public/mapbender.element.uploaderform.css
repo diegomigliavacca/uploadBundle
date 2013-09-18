@@ -44,7 +44,7 @@ select, input[type="text"] {
 .link {
     float: right;
     position: relative;
-    top: 8px;
+    top: 10px;
     margin-right: 10px;
 }
 .link:hover {
