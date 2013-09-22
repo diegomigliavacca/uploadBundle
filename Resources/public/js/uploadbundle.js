@@ -65,17 +65,17 @@ function poly(pars) {
 			lgpx.events.register("loadend", lgpx, setExtent);
 			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addLayer(lgpx);
 
-		/*	var highlight = new OpenLayers.Control.SelectFeature(lgpx, {
-				hover : true,
-				highlightOnly : true
-			});
+			/*	var highlight = new OpenLayers.Control.SelectFeature(lgpx, {
+			 hover : true,
+			 highlightOnly : true
+			 });
 
-			highlight.events.register("featurehighlighted", highlight, function(event) {
-				lgpx.drawFeature(event.feature, "temporary");
-			});
+			 highlight.events.register("featurehighlighted", highlight, function(event) {
+			 lgpx.drawFeature(event.feature, "temporary");
+			 });
 
-			$('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addControl(highlight);
-			highlight.activate();  */
+			 $('.olMap.mb-element').data('mapbenderMbMap').map.olMap.addControl(highlight);
+			 highlight.activate();  */
 
 			var select_gpx = new OpenLayers.Control.SelectFeature(lgpx);
 
@@ -127,7 +127,7 @@ function poly(pars) {
 
 		case ".kml":
 			var shapes = new OpenLayers.Layer.Vector("KML", {
-				projection : $('.olMap.mb-element').data('mapbenderMbMap').map.olMap.displayProjection,
+				projection : new OpenLayers.Projection("EPSG:4326"),
 				strategies : [new OpenLayers.Strategy.Fixed()],
 				protocol : new OpenLayers.Protocol.HTTP({
 					url : $(pars).attr("id"),
