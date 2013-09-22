@@ -113,3 +113,7 @@ select, input[type="text"] {
     background: url("../spookyislandupload/images/close.gif") no-repeat;
     cursor: pointer;
 }
+
+.olLayerDiv svg g g image {
+    cursor: pointer;
+}

@@ -157,6 +157,10 @@ select, input[type="text"] {
     cursor: pointer;
 }
 
+.olLayerDiv svg g g image {
+    cursor: pointer;
+}
+
 /* from now on, you have the mapbender3_theme css with a couple of changes - dropped the * reset, modified p margin at row 692, modified position at row 1286,
  * commented rows 788-791 */
 
